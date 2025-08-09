@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>恋爱周期情景测试：从心动到心碎</title>
+    <style>
+        body {
+            font-family: 'Noto Sans SC', Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            transition: background-color 0.5s ease;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 600px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #e91e63;
+        }
+        .disclaimer {
+            background: #fff3f3;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            font-size: 14px;
+            color: #555;
+        }
+        .question {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        .question.active {
+            display: block;
+            opacity: 1;
+        }
+        .option {
+            display: block;
+            margin: 10px 0;
+            padding: 10px;
+            background: #f5f5f5;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .option:hover {
+            background: #e0e0e0;
+        }
+        .response {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #e0f7d8;
+            padding: 10px 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            font-size: 14px;
+            display: none;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        .response.active {
+            display: block;
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+        .response.swipe-up {
+            transform: translateX(-50%) translateY(-100px);
+            opacity: 0;
+        }
+        .close-btn {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            color: #555;
+        }
+        #result {
+            display: none;
+            text-align: center;
+        }
+        #score {
+            font-size: 36px;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+        #scoreBar {
+            width: 0;
+            height: 20px;
+            background: #e91e63;
+            transition: width 0.1s;
+            border-radius: 5px;
+            margin: 10px auto;
+            max-width: 400px;
+        }
+        #comment {
+            font-size: 18px;
+            margin-top: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            background: #e91e63;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
+        }
+        button:hover {
+            background: #d81b60;
+        }
+        #loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #ffebee;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        #loading p {
+            font-size: 18px;
+            color: #e91e63;
+            margin-top: 20px;
+        }
+        .loader {
+            border: 8px solid #f3f3f3;
+            border-top: 8px solid #e91e63;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .music-credit {
+            background: #fff3f3;
+            padding: 10px;
+            margin-top: 20px;
+            border-radius: 5px;
+            font-size: 12px;
+            color: #555;
+            text-align: center;
+        }
+        @media (min-width: 601px) {
+            .response {
+                bottom: 20px;
+                left: auto;
+                right: -300px;
+                transform: none;
+                transition: right 0.3s ease;
+            }
+            .response.active {
+                right: 20px;
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body style="background-color: #ffebee;">
+    <div id="loading">
+        <div class="loader"></div>
+        <p>正在加载资源，请稍候…<br>请打开音量，体验效果更佳！</p>
+    </div>
+    <audio id="bgm1" preload="auto">
+        <source src="sweet_bgm.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="bgm2" preload="auto">
+        <source src="sad_bgm.mp3" type="audio/mpeg">
+    </audio>
+    <div class="container">
+        <h1>恋爱周期情景测试：从心动到心碎</h1>
+        <div class="disclaimer">
+            <p><strong>免责声明</strong>：本测试仅供娱乐，旨在让你体验恋爱中的真实抉择。请根据第一直觉选择答案，不要纠结！现实情况因人而异，测试结果仅供参考，祝你玩得开心！</p>
+        </div>
+        <div id="questions">
+            <!-- 题目1 -->
+            <div class="question" data-index="1" data-bg="#ffebee">
+                <p><strong>第1题（恋爱第1周）</strong><br>你们刚恋爱，小雅约你下班后去吃火锅，她迟到了20分钟，笑着说堵车了。你会：</p>
+                <div class="option" data-score="10">A. 说没事，帮她点好她爱吃的菜。</div>
+                <div class="option" data-score="5">B. 笑笑说下次早点，但语气轻松。</div>
+                <div class="option" data-score="0">C. 不说话，等她自己解释。</div>
+                <div class="option" data-score="-5">D. 有点烦，说她不守时。</div>
+                <div class="response"><span class="close-btn">×</span></div>
+            </div>
+            <!-- 题目2 -->
+            <div class="question" data-index="2" data-bg="#ffcdd2">
+                <p><strong>第2题（恋爱第1周）</strong><br>吃火锅时，小雅点了一堆贵的海鲜，你觉得有点超预算。你会：</p>
+                <div class="option" data-score="10">A. 笑着说随便点，今天你买单。</div>
+                <div class="option" data-score="5">B. 温和提醒她点适量，省点钱。</div>
+                <div class="option" data-score="0">C. 说你随便，她爱点啥点啥。</div>
+                <div class="option" data-score="-5">D. 说太贵了，劝她换便宜的。</div>
+                <div class="response"><span class="close-btn">×</span></div>
+            </div>
+            <!-- 题目3 -->
+            <div class="question" data-index="3" data-bg="#ffc1cc">
+                <p><strong>第3题（恋爱第2周）</strong><br>小雅发朋友圈，晒了你们吃火锅的照片，配文“新生活开始了”。你会：</p>
+                <div class="option" data-score="10">A. 立刻点赞评论，写句甜蜜的话。</div>
+                <div class="option" data-score="5">B. 点赞但不评论，觉得有点羞。</div>
+                <div class="option" data-score="0">C. 看完没反应，觉得没必要。</div>
+                <div class="option" data-score="-10">D. 私聊说别发这些，太高调了。（-10）</div>
+                <div class="response"><span class="close-btn">×</span></div>
+            </div>
+            <!-- 题目4 -->
+            <div class="question" data-index="4" data-bg="#ff8a80">
+                <p><strong>第4题（恋爱第2周）</strong><br>小雅说她想换新手机，纠结买iPhone还是国产机，问你意见。你会：</p>
+                <div class="option" data-score="10">A. 说iPhone好，鼓励她买喜欢的。</div>
+                <div class="option" data-score="5">B. 说国产机性价比高，建议她考虑。</div>
+                <div class="option" data-score="0">C. 说你不懂，随她选。</div>
+                <div class="option" data-score="-5">D. 说换手机没必要，旧的还能用。</div>
+                <div class="response"><span class="close-btn">×</span></div>
+            </div>
+            <!-- 题目5 -->
+            <div class="question" data-index="5" data-bg="#ff8a80">
+                <p><strong>第5题（恋爱第3周）</strong><br>小雅下班后说饿了，想点奶茶和炸鸡外卖。你会：</p>
+                <div class="option" data-score="10">A. 帮她点她爱喝的奶茶和炸鸡，送到她家。</div>
+                <div class="option" data-score="5">B. 说好，但让她自己点，你付钱。</div>
+                <div class="option" data-score="0">C. 说太晚了，吃点家里的吧。</div>
+                <div class="option" data-score="-5">D. 说外卖不健康，劝她别吃。</div>
+                <div class="response"><span class="close-btn">×</span></div>
+            </div>
+            <!-- 题目6 -->
+            <div class="question" data-index="6" data-bg="#ff8a80">
+                <p><strong>第6题（恋爱第1个月）</strong><br>周末小雅想去网红甜品店吃蛋糕，但排队要1小时。你会：</p>
+                <div class="option" data-score="10">A. 陪她排队，边聊边等，哄她开心。</div>
+                <div class="option" data-score="5">B. 建议去另一家不排队的店，味道也行。</div>
+                <div class="option" data-score="0">C. 说排队太麻烦，随便吃点吧。</div>
+                <div class="option" data-score="-10">D. 说你不想去，让她自己去。（-10）</div>
+                <div class="response"><span class="close-btn">×</span></div>
+            </div>
+            <!-- 题目7 -->
+            <div class="question" data-index="7" data-bg="#ff8a80">
+                <p><strong>第7题（恋爱第1个月）</strong><br>小雅买了新衣服，发照片问你好不好看。你觉得一般但她很期待。你会：</p>
+                <div class="option" data-score="10">A. 夸她好看，说她穿啥都美。</div>
+                <div class="option" data-score="5">B. 说还行，建议她试试别的风格。</div>
+                <div class="option" data-score="0">C. 说你不懂，随她喜欢。</div>
+                <div class="option" data-score="-10">D. 说这件不太好看，劝她退了。（-10）</div>
+                <div class="response"><span class="close-btn">×</span></div>
+            </div>
+            <!-- 题目8 -->
+            <div class="question" data-index="8" data-bg="#ff8a80">
+                <p><strong>第8题（恋爱第1个月）</strong><br>小雅说她闺蜜约她去唱K，她问你要不要一起。你不爱唱歌。你会：</p>
+                <div class="option" data-score="10">A. 陪她去，试着融入她的朋友圈。</div>
+                <div class="option" data-score="5">B. 说你不去，但让她玩得开心。</div>
+                <div class="option" data-score="0">C. 说你忙，推辞不去。</div>
+                <div class="option" data-score="-10">D. 说你不喜欢她闺蜜，不想去。（-10）</div>
+                <div class="response"><span class="close-btn">×</span></div>
+            </div>
+            <!-- 题目9 -->
+            <div class="question" data-index="9" data-bg="#ef5350">
+                <p><strong>第9题（恋爱第2个月）</strong><br>小雅感冒了，发微信抱怨没人在乎她。你会：</p>
+                <div class="option" data-score="10">A. 买药送到她家，叮嘱她好好休息。</div>
+                <div class="option" data-score="5">B. 微信安慰她，让她多喝热水。</div>
+                <div class="option" data-score="0">C. 说感冒没事，睡一觉就好。</div>
+                <div class="option" data-score="-10">D. 说她太矫情，小病别抱怨。（-10）</div>
+                <div class="response"><span class="close-btn">×</span></div>
+            </div>
+            <!-- 题目10 -->
+            <div class="question" data-index="10" data-bg="#ef5350">
+                <p><strong>第10题（恋爱第2个月）</strong><br>你发现小雅常跟一个男同事发微信，她说是工作上的事。你会：</p>
+                <div class="option" data-score="10">A. 信任她，主动问她工作情况。</div>
+                <div class="option" data-score="5">B. 温和说多注意点，免得误会。</div>
+                <div class="option" data-score="0">C. 旁敲侧击问她那男的是谁。</div>
+                <div class="option" data-score="-10">D. 质问她为什么跟男同事聊那么多。（-10）</div>
+                <div class="response"><span class="close-btn">×</span></div>
+            </div>
+            <!-- 题目11 -->
+            <div class="question" data-index="11" data-bg="#ef5350">
+                <p><strong>第11题（恋爱第3个月）</strong><br>小雅说她想买个名牌包，价格是你一个月工资。你会：</p>
+                <div class="option" data-score="15">A. 咬牙买下来，送她当礼物。（+15）</div>
+                <div class="option" data-score="5">B. 建议买个平价但好看的包。</div>
+                <div class="option" data-score="0">C. 说你没意见，随她决定。</div>
+                <div class="option" data-score="-15">D. 说太贵了，买不起。（-15）</div>
+                <div class="response"><span class="close-btn">×</span></div>
+            </div>
+            <!-- 题目12 -->
+            <div class="question" data-index="12" data-bg="#ef5350">
+                <p><strong>第12题（恋爱第3个月）</strong><br>小雅下班后心情不好，想让你陪她散步聊天。你刚加完班很累。你会：</p>
+                <div class="option" data-score="15">A. 去陪她散步，听她诉苦。（+15）</div>
+                <div class="option" data-score="5">B. 说你累了，微信聊聊吧。</div>
+                <div class="option" data-score="0">C. 说你也忙，改天再聊。</div>
+                <div class="option" data-score="-15">D. 说她想太多，劝她别emo。（-15）</div>
+                <div class="response"><span class="close-btn">×</span></div>
+            </div>
+            <!-- 题目13 -->
+            <div class="question" data-index="13" data-bg="#ef5350">
+                <p><strong>第13题（恋爱第4个月）</strong><br>小雅忘了你们约好的电影时间，临时说要加班。你会：</p>
+                <div class="option" data-score="15">A. 理解她，改天再约，送她杯咖啡。（+15）</div>
+                <div class="option" data-score="5">B. 说没事，约下次吧。</div>
+                <div class="option" data-score="0">C. 有点不爽，但没说什么。</div>
+                <div class="option" data-score="-15">D. 责怪她不重视你们约会。（-15）</div>
+                <div class="response"><span class="close-btn">×</span></div>
+            </div>
+            <!-- 题目14 -->
+            <div class="question" data-index="14" data-bg="#d32f2f">
+                <p><strong>第14题（恋爱第4个月）</strong><br>小雅朋友圈发了和男同事的合照，配文“工作小伙伴”。你会：</p>
+                <div class="option" data-score="10">A. 私下问她照片背景，语气平和。</div>
+                <div class="option" data-score="5">B. 点赞但心里有点不舒服。</div>
+                <div class="option" data-score="0">C. 不吭声，暗自观察她。</div>
+                <div class="option" data-score="-15">D. 发火问她是不是背着你搞暧昧。（-15）</div>
+                <div class="response"><span class="close-btn">×</span></div>
+            </div>
+            <!-- 题目15 -->
+            <div class="question" data-index="15" data-bg="#d32f2f">
+                <p><strong>第15题（恋爱第5个月）</strong><br>小雅说她想养只猫，但你觉得养猫费时费钱。你会：</p>
+                <div class="option" data-score="15">A. 同意养，陪她一起照顾。（+15）</div>
+                <div class="option" data-score="5">B. 建议养简单点的宠物，比如乌龟。</div>
+                <div class="option" data-score="0">C. 说养猫太麻烦，劝她别养。</div>
+                <div class="option" data-score="-15">D. 说你讨厌猫，坚决不养。（-15）</div>
+                <div class="response"><span class="close-btn">×</span></div>
+            </div>
+            <!-- 题目16 -->
+            <div class="question" data-index="16" data-bg="#d32f2f">
+                <p><strong>第16题（恋爱第6个月）</strong><br>小雅因为工作压力大，冲你发脾气，说你不关心她。你会：</p>
+                <div class="option" data-score="15">A. 抱她安慰，陪她缓解压力。（+15）</div>
+                <div class="option" data-score="5">B. 说你也累，劝她冷静点。</div>
+                <div class="option" data-score="0">C. 沉默，等她自己消气。</div>
+                <div class="option" data-score="-20">D. 生气地说她无理取闹。（-20）</div>
+                <div class="response"><span class="close-btn">×</span></div>
+            </div>
+            <!-- 题目17 -->
+            <div class="question" data-index="17" data-bg="#d32f2f">
+                <p><strong>第17题（恋爱第6个月）</strong><br>你发现小雅删了你们的部分聊天记录，理由是手机卡。你会：</p>
+                <div class="option" data-score="15">A. 平和问她原因，表达你的疑惑。（+15）</div>
+                <div class="option" data-score="5">B. 不提，但暗中观察她。</div>
+                <div class="option" data-score="0">C. 直接问她是不是有事瞒你。</div>
+                <div class="option" data-score="-20">D. 发火说她不信任你。（-20）</div>
+                <div class="response"><span class="close-btn">×</span></div>
+            </div>
+            <!-- 题目18 -->
+            <div class="question" data-index="18" data-bg="#d32f2f">
+                <p><strong>第18题（恋爱第7个月）</strong><br>小雅说她想去外地出差半年，可能会异地恋。你会：</p>
+                <div class="option" data-score="15">A. 支持她，承诺保持联系。（+15）</div>
+                <div class="option" data-score="5">B. 说异地恋难，但可以试试。</div>
+                <div class="option" data-score="0">C. 劝她别去，异地恋不靠谱。</div>
+                <div class="option" data-score="-20">D. 说你接受不了，可能会分手。（-20）</div>
+                <div class="response"><span class="close-btn">×</span></div>
+            </div>
+            <!-- 题目19 -->
+            <div class="question" data-index="19" data-bg="#c62828">
+                <p><strong>第19题（恋爱第7个月）</strong><br>小雅闺蜜说你不够浪漫，小雅也暗示你不够主动。你会：</p>
+                <div class="option" data-score="15">A. 计划一个浪漫惊喜，改变她看法。（+15）</div>
+                <div class="option" data-score="5">B. 问她是不是觉得你不够好，沟通一下。</div>
+                <div class="option" data-score="0">C. 觉得自己已经够好了，不理会。</div>
+                <div class="option" data-score="-20">D. 生气地说她闺蜜多管闲事。（-20）</div>
+                <div class="response"><span class="close-btn">×</span></div>
+            </div>
+            <!-- 题目20 -->
+            <div class="question" data-index="20" data-bg="#c62828">
+                <p><strong>第20题（恋爱第8个月）</strong><br>小雅提到她前任最近联系她，说想做朋友。你会：</p>
+                <div class="option" data-score="15">A. 冷静表达你的不安，问她态度。（+15）</div>
+                <div class="option" data-score="5">B. 说你相信她，但提醒保持距离。</div>
+                <div class="option" data-score="0">C. 偷看她手机，确认他们聊了什么。</div>
+                <div class="option" data-score="-20">D. 质问她是不是还放不下前任。（-20）</div>
+                <div class="response"><span class="close-btn">×</span></div>
+            </div>
+            <!-- 题目21 -->
+            <div class="question" data-index="21" data-bg="#c62828">
+                <p><strong>第21题（恋爱第9个月）</strong><br>小雅因为你忘了纪念日大吵一架，说你不在乎她。你会：</p>
+                <div class="option" data-score="20">A. 真诚道歉，补办一个纪念日活动。（+20）</div>
+                <div class="option" data-score="5">B. 说你忘了但不是故意的，哄她开心。</div>
+                <div class="option" data-score="0">C. 说她太计较，小事而已。</div>
+                <div class="option" data-score="-25">D. 生气地说她太敏感，吵架没意义。（-25）</div>
+                <div class="response"><span class="close-btn">×</span></div>
+            </div>
+            <!-- 题目22 -->
+            <div class="question" data-index="22" data-bg="#c62828">
+                <p><strong>第22题（恋爱第9个月）</strong><br>你发现小雅和男同事单独吃夜宵，没提前告诉你。你会：</p>
+                <div class="option" data-score="20">A. 冷静问她情况，表达你的感受。（+20）</div>
+                <div class="option" data-score="5">B. 问她为什么不告诉你，语气平和。</div>
+                <div class="option" data-score="0">C. 冷战，等她主动解释。</div>
+                <div class="option" data-score="-25">D. 发火说她不尊重你。（-25）</div>
+                <div class="response"><span class="close-btn">×</span></div>
+            </div>
+            <!-- 题目23 -->
+            <div class="question" data-index="23" data-bg="#c62828">
+                <p><strong>第23题（恋爱第10个月）</strong><br>小雅说她觉得你们感情淡了，想冷静几天。你会：</p>
+                <div class="option" data-score="20">A. 尊重她，给空间但每天关心一下。（+20）</div>
+                <div class="option" data-score="5">B. 问她具体原因，试图解决问题。</div>
+                <div class="option" data-score="0">C. 说随便她，你也需要冷静。</div>
+                <div class="option" data-score="-25">D. 生气地说分就分。（-25）</div>
+                <div class="response"><span class="close-btn">×</span></div>
+            </div>
+            <!-- 题目24 -->
+            <div class="question" data-index="24" data-bg="#b71c1c">
+                <p><strong>第24题（恋爱第10个月）</strong><br>小雅深夜发朋友圈，写“有些事，终究是错的”，像是对你不满。你会：</p>
+                <div class="option" data-score="20">A. 主动找她聊，关心她的情绪。（+20）</div>
+                <div class="option" data-score="5">B. 微信问她怎么了，但不深究。</div>
+                <div class="option" data-score="0">C. 看到后不吭声，等她自己说。</div>
+                <div class="option" data-score="-25">D. 觉得她在作，直接无视。（-25）</div>
+                <div class="response"><span class="close-btn">×</span></div>
+            </div>
+            <!-- 题目25 -->
+            <div class="question" data-index="25" data-bg="#b71c1c">
+                <p><strong>第25题（恋爱第11个月）</strong><br>小雅说她觉得你没那么爱她，怀疑你们的关系。你会：</p>
+                <div class="option" data-score="20">A. 反思自己，用行动证明你的心意。（+20）</div>
+                <div class="option" data-score="5">B. 说你很爱她，但需要时间证明。</div>
+                <div class="option" data-score="0">C. 说她想多了，你没问题。</div>
+                <div class="option" data-score="-25">D. 反问她是不是不爱你了。（-25）</div>
+                <div class="response"><span class="close-btn">×</span></div>
+            </div>
+            <!-- 题目26 -->
+            <div class="question" data-index="26" data-bg="#b71c1c">
+                <p><strong>第26题（恋爱第12个月）</strong><br>小雅说她觉得你们价值观不同，考虑分手。你会：</p>
+                <div class="option" data-score="25">A. 冷静问她具体问题，尝试挽回。（+25）</div>
+                <div class="option" data-score="5">B. 尊重她的想法，表达你的不舍。</div>
+                <div class="option" data-score="0">C. 说随便她，你也不想强求。</div>
+                <div class="option" data-score="-30">D. 愤怒地说她不珍惜，分就分。（-30）</div>
+                <div class="response"><span class="close-btn">×</span></div>
+            </div>
+            <!-- 题目27 -->
+            <div class="question" data-index="27" data-bg="#b71c1c">
+                <p><strong>第27题（恋爱第12个月）</strong><br>你发现小雅和前任频繁聊天，她说只是叙旧。你会：</p>
+                <div class="option" data-score="25">A. 坦诚沟通，表达你的底线和不安。（+25）</div>
+                <div class="option" data-score="5">B. 说你信任她，但希望她保持距离。</div>
+                <div class="option" data-score="0">C. 偷看她手机，确认他们聊了什么。</div>
+                <div class="option" data-score="-30">D. 发火说她背叛你，直接摊牌。（-30）</div>
+                <div class="response"><span class="close-btn">×</span></div>
+            </div>
+            <!-- 题目28 -->
+            <div class="question" data-index="28" data-bg="#b71c1c">
+                <p><strong>第28题（恋爱第13个月）</strong><br>小雅因工作压力崩溃，哭着说她不知道怎么继续你们的关系。你会：</p>
+                <div class="option" data-score="25">A. 抱紧她，安慰她，承诺一起面对。（+25）</div>
+                <div class="option" data-score="5">B. 说你会支持她，但让她想清楚。</div>
+                <div class="option" data-score="0">C. 沉默，说你也不知道怎么办。</div>
+                <div class="option" data-score="-30">D. 说她太情绪化，劝她别想太多。（-30）</div>
+                <div class="response"><span class="close-btn">×</span></div>
+            </div>
+            <!-- 题目29 -->
+            <div class="question" data-index="29" data-bg="#b71c1c">
+                <p><strong>第29题（恋爱第13个月）</strong><br>小雅说她觉得你们感情变淡了，可能是她的问题。你会：</p>
+                <div class="option" data-score="25">A. 主动沟通，提出一起努力重燃感情。（+25）</div>
+                <div class="option" data-score="5">B. 说感情需要双方努力，问她怎么想。</div>
+                <div class="option" data-score="0">C. 说你觉得还好，看她怎么处理。</div>
+                <div class="option" data-score="-30">D. 生气地说她总是挑毛病。（-30）</div>
+                <div class="response"><span class="close-btn">×</span></div>
+            </div>
+            <!-- 题目30 -->
+            <div class="question" data-index="30" data-bg="#b71c1c">
+                <p><strong>第30题（恋爱第14个月）</strong><br>小雅提出分手，说她累了，不想继续了。你会：</p>
+                <div class="option" data-score="30">A. 冷静挽留，询问能否解决矛盾。（+30）</div>
+                <div class="option" data-score="5">B. 说你尊重她，但心里很难受。</div>
+                <div class="option" data-score="0">C. 沉默接受，觉得无力挽回。</div>
+                <div class="option" data-score="-35">D. 愤怒地说她从没珍惜你。（-35）</div>
+                <div class="response"><span class="close-btn">×</span></div>
+            </div>
+        </div>
+        <div id="result">
+            <h2>你的恋爱表现得分</h2>
+            <div id="score">0</div>
+            <div id="scoreBar"></div>
+            <div id="comment"></div>
+            <button onclick="location.reload()">再玩一次</button>
+            <button onclick="shareResult()">分享你的结果</button>
+        </div>
+        <div class="music-credit">
+            <p>背景音乐来源：<a href="https://freesound.org/people/GregorQuendel/sounds/714250/" target="_blank">Beethoven - Romance in F major, Op.50 (Piano) by GregorQuendel</a>
+			</p>
+			<p><a href="https://freesound.org/people/Universfield/sounds/713229/" target="_blank">Emotional Sad Atmosphere with Piano and Violin by Universfield</a>.</p>
+        </div>
+    </div>
+
+    <script>
+        let currentQuestion = 1;
+        let totalScore = 0;
+        let aCount = 0, dCount = 0;
+        const questions = document.querySelectorAll('.question');
+        const resultDiv = document.getElementById('result');
+        const scoreDiv = document.getElementById('score');
+        const scoreBar = document.getElementById('scoreBar');
+        const commentDiv = document.getElementById('comment');
+        const loadingDiv = document.getElementById('loading');
+        const bgm1 = document.getElementById('bgm1');
+        const bgm2 = document.getElementById('bgm2');
+        let currentBGM = bgm1;
+
+        // 小雅的反馈
+        const responses = {
+            1: { '10': '小雅：嗯，谢谢。', '5': '小雅：好吧。', '0': '小雅：……', '-5': '小雅：你干嘛生气？' },
+            2: { '10': '小雅：你真大方！', '5': '小雅：行吧。', '0': '小雅：随便。', '-5': '小雅：这么小气干嘛？' },
+            3: { '10': '小雅：嘿嘿，开心！', '5': '小雅：嗯，谢谢点赞。', '0': '小雅：你看了吗？', '-10': '小雅：你干嘛不让我发？' },
+            4: { '10': '小雅：好开心！', '5': '小雅：嗯，有道理。', '0': '小雅：随便吧。', '-5': '小雅：旧的也能用？' },
+            5: { '10': '小雅：你真好！', '5': '小雅：好，点好了。', '0': '小雅：那算了。', '-5': '小雅：你管我吃什么！' },
+            6: { '10': '小雅：你真棒！', '5': '小雅：也好。', '0': '小雅：无所谓啦。', '-10': '小雅：你怎么这样？' },
+            7: { '10': '小雅：真的吗？开心！', '5': '小雅：嗯，行吧。', '0': '小雅：随便你。', '-10': '小雅：你什么意思？' },
+            8: { '10': '小雅：太好了！', '5': '小雅：好吧，玩得开心。', '0': '小雅：你忙吧。', '-10': '小雅：你干嘛这么说？' },
+            9: { '10': '小雅：谢谢你！', '5': '小雅：嗯，知道了。', '0': '小雅：算了。', '-10': '小雅：你怎么这样！' },
+            10: { '10': '小雅：好，聊工作吧。', '5': '小雅：嗯，知道了。', '0': '小雅：你想啥呢？', '-10': '小雅：你干嘛这样问？' },
+            11: { '15': '小雅：你太好了！', '5': '小雅：行吧，平价也行。', '0': '小雅：随便。', '-15': '小雅：你至于吗？' },
+            12: { '15': '小雅：谢谢你陪我！', '5': '小雅：好，微信聊。', '0': '小雅：行吧，改天。', '-15': '小雅：你怎么这样？' },
+            13: { '15': '小雅：你真贴心！', '5': '小雅：嗯，下次吧。', '0': '小雅：……', '-15': '小雅：你干嘛怪我？' },
+            14: { '10': '小雅：就是同事啊。', '5': '小雅：嗯，行。', '0': '小雅：你干嘛不说话？', '-15': '小雅：你什么意思？' },
+            15: { '15': '小雅：太好了！', '5': '小雅：乌龟？想想吧。', '0': '小雅：好吧，不养了。', '-15': '小雅：你干嘛反对？' },
+            16: { '15': '小雅：谢谢你……', '5': '小雅：嗯，冷静下。', '0': '小雅：你怎么不说话？', '-20': '小雅：你还生气？' },
+            17: { '15': '小雅：就是卡了而已。', '5': '小雅：嗯，没啥。', '0': '小雅：你干嘛问这个？', '-20': '小雅：你不信任我？' },
+            18: { '15': '小雅：谢谢支持！', '5': '小雅：好，试试吧。', '0': '小雅：你不支持我？', '-20': '小雅：你怎么这样？' },
+            19: { '15': '小雅：真的？好期待！', '5': '小雅：嗯，聊聊吧。', '0': '小雅：随便你。', '-20': '小雅：你干嘛骂我闺蜜？' },
+            20: { '15': '小雅：我跟他没啥。', '5': '小雅：嗯，知道了。', '0': '小雅：你干嘛偷看？', '-20': '小雅：你凭什么这么说？' },
+            21: { '20': '小雅：好吧，谢谢你。', '5': '小雅：嗯，算了。', '0': '小雅：你觉得是小事？', '-25': '小雅：你还怪我？' },
+            22: { '20': '小雅：就是吃个饭。', '5': '小雅：嗯，下次说。', '0': '小雅：你干嘛不理我？', '-25': '小雅：你有病吧？' },
+            23: { '20': '小雅：谢谢你理解。', '5': '小雅：嗯，聊聊吧。', '0': '小雅：随便你。', '-25': '小雅：你说什么？' },
+            24: { '20': '小雅：谢谢你关心。', '5': '小雅：没事吧。', '0': '小雅：你看到了？', '-25': '小雅：你故意的？' },
+            25: { '20': '小雅：好，我相信你。', '5': '小雅：嗯，慢慢来。', '0': '小雅：你觉得没问题？', '-25': '小雅：你还怪我？' },
+            26: { '25': '小雅：好，我们聊聊。', '5': '小雅：嗯，我想想。', '0': '小雅：随便你吧。', '-30': '小雅：你够了吧！' },
+            27: { '25': '小雅：好，我明白。', '5': '小雅：嗯，行吧。', '0': '小雅：你偷看我手机？', '-30': '小雅：你太过分了！' },
+            28: { '25': '小雅：谢谢你……', '5': '小雅：好，我想想。', '0': '小雅：你没话说了？', '-30': '小雅：你什么意思？' },
+            29: { '25': '小雅：好，我们试试。', '5': '小雅：嗯，行吧。', '0': '小雅：你觉得没事？', '-30': '小雅：你还怪我？' },
+            30: { '30': '小雅：好，我们谈谈。', '5': '小雅：嗯，谢谢。', '0': '小雅：……', '-35': '小雅：你够了！' }
+        };
+
+        // 加载动画
+        window.addEventListener('load', () => {
+            const resources = [bgm1, bgm2];
+            let loaded = 0;
+            resources.forEach(audio => {
+                audio.addEventListener('canplaythrough', () => {
+                    loaded++;
+                    if (loaded === resources.length) {
+                        setTimeout(() => {
+                            loadingDiv.style.display = 'none';
+                            document.querySelector('.container').style.display = 'block';
+                            bgm1.volume = 0.2;
+                            bgm1.play().catch(e => console.error('BGM1 play error:', e));
+                        }, 500);
+                    }
+                });
+                audio.load();
+            });
+            loadingDiv.addEventListener('click', () => {
+                loadingDiv.style.display = 'none';
+                document.querySelector('.container').style.display = 'block';
+                bgm1.volume = 0.2;
+                bgm1.play().catch(e => console.error('BGM1 play error:', e));
+            });
+        });
+
+        // BGM渐变切换
+function crossfadeBGM(nextBGM) {
+    if (currentBGM === nextBGM) return;
+    const fadeOut = setInterval(() => {
+        if (currentBGM.volume > 0.05) {
+            currentBGM.volume -= 0.05;
+        } else {
+            clearInterval(fadeOut);
+            currentBGM.pause();
+            currentBGM.currentTime = 0;
+            currentBGM.volume = 0.2;
+            nextBGM.volume = 0;
+            nextBGM.play().catch(e => console.error('BGM play error:', e));
+            const fadeIn = setInterval(() => {
+                if (nextBGM.volume < 0.2) {
+                    nextBGM.volume += 0.05;
+                } else {
+                    clearInterval(fadeIn);
+                    nextBGM.volume = 0.2;
+                }
+            }, 50);
+            currentBGM = nextBGM;
+        }
+    }, 50);
+}
+
+        // 更新BGM
+function updateBGM() {
+    if (currentQuestion <= 10 && currentBGM !== bgm1) {
+        crossfadeBGM(bgm1);
+    } else if (currentQuestion >= 11 && currentBGM !== bgm2) {
+        crossfadeBGM(bgm2);
+    }
+}
+
+        // 显示第一题
+        document.querySelector('.container').style.display = 'none';
+        document.querySelector('.question[data-index="1"]').classList.add('active');
+
+        // 消息框交互
+        function showResponse(responseDiv, score) {
+            responseDiv.textContent = responses[currentQuestion][score];
+            responseDiv.classList.add('active');
+            responseDiv.style.display = 'block';
+
+            responseDiv.removeEventListener('touchstart', handleTouchStart);
+            responseDiv.removeEventListener('touchmove', handleTouchMove);
+
+            if (window.innerWidth <= 600) {
+                let touchStartY = 0;
+                function handleTouchStart(e) {
+                    touchStartY = e.touches[0].clientY;
+                }
+                function handleTouchMove(e) {
+                    const deltaY = e.touches[0].clientY - touchStartY;
+                    if (deltaY < -50) {
+                        responseDiv.classList.remove('active');
+                        responseDiv.classList.add('swipe-up');
+                        setTimeout(() => {
+                            responseDiv.classList.remove('swipe-up');
+                            responseDiv.style.display = 'none';
+                        }, 300);
+                    }
+                }
+                responseDiv.addEventListener('touchstart', handleTouchStart);
+                responseDiv.addEventListener('touchmove', handleTouchMove);
+            }
+
+            const closeBtn = responseDiv.querySelector('.close-btn');
+            if (closeBtn) {
+                closeBtn.removeEventListener('click', handleClose);
+                function handleClose() {
+                    responseDiv.classList.remove('active');
+                    responseDiv.style.display = 'none';
+                }
+                closeBtn.addEventListener('click', handleClose);
+            }
+        }
+
+        // 选项点击事件
+        document.querySelectorAll('.option').forEach(option => {
+            option.addEventListener('click', () => {
+                const score = parseInt(option.dataset.score);
+                totalScore += score;
+                if (option.textContent.startsWith('A.')) aCount++;
+                if (option.textContent.startsWith('D.')) dCount++;
+
+                const current = document.querySelector('.question.active');
+                const responseDiv = current.querySelector('.response');
+                showResponse(responseDiv, score);
+
+                setTimeout(() => {
+                    responseDiv.classList.remove('active');
+                    responseDiv.style.display = 'none';
+                    current.classList.remove('active');
+                    current.style.display = 'none';
+                    if (currentQuestion < questions.length) {
+                        currentQuestion++;
+                        const nextQuestion = document.querySelector(`.question[data-index="${currentQuestion}"]`);
+                        nextQuestion.classList.add('active');
+                        nextQuestion.style.display = 'block';
+                        document.body.style.backgroundColor = nextQuestion.dataset.bg;
+                        updateBGM();
+                    } else {
+                        showResult();
+                    }
+                }, 1500);
+            });
+        });
+
+        // 动态显示分数
+        function showResult() {
+            questions.forEach(q => q.style.display = 'none');
+            resultDiv.style.display = 'block';
+            let bgColor = '#ffebee';
+            if (totalScore >= 750 || totalScore <= 249) {
+                bgColor = '#b71c1c';
+            } else if (totalScore >= 250 && totalScore <= 749) {
+                bgColor = '#4caf50';
+            }
+            document.body.style.backgroundColor = bgColor;
+
+            let displayScore = 0;
+            const increment = totalScore >= 0 ? 10 : -10;
+            const interval = setInterval(() => {
+                if ((increment > 0 && displayScore >= totalScore) || (increment < 0 && displayScore <= totalScore)) {
+                    clearInterval(interval);
+                    scoreDiv.textContent = totalScore;
+                    scoreBar.style.width = `${Math.min((totalScore + 1000) / 2000 * 100, 100)}%`;
+                    showComment();
+                } else {
+                    if (Math.abs(displayScore - totalScore) < 100 && Math.random() > 0.7) {
+                        setTimeout(() => {}, 500);
+                    }
+                    displayScore += increment;
+                    scoreDiv.textContent = displayScore;
+                    scoreBar.style.width = `${Math.min((displayScore + 1000) / 2000 * 100, 100)}%`;
+                }
+            }, 50);
+            currentBGM.pause();
+        }
+
+        // 评语
+        function showComment() {
+            let comment = '';
+            if (totalScore >= 750) {
+                comment = aCount > 15 ? '你很用心，但别太迁就，爱情需要平衡。' : '你是恋爱高手，懂得付出但也别忘了自己！';
+            } else if (totalScore >= 500) {
+                comment = '你还不错，但有些时候需要更用心，多沟通哦！';
+            } else if (totalScore >= 250) {
+                comment = '你有点自我了，多站在对方角度想想，爱情需要双向奔赴！';
+            } else if (totalScore >= 0) {
+                comment = '你的恋爱方式有点危险，容易翻车，试着多理解对方吧！';
+            } else {
+                comment = dCount > 15 ? '你可能太冷漠了，多给点温暖，爱情才能长久！' : '哎呀，可能太迁就或太自我了，重新调整一下吧！';
+            }
+            commentDiv.textContent = comment + ' 不管怎样，爱情需要真心和智慧，加油找到属于你的幸福！';
+        }
+
+        // 分享结果
+        function shareResult() {
+            const text = `我在《恋爱周期情景测试》得了${totalScore}分！${commentDiv.textContent} 快来测测你的恋爱表现吧！[你的网页链接]`;
+            navigator.clipboard.writeText(text);
+            alert('结果已复制到剪贴板，粘贴到微信/QQ分享吧！');
+        }
+    </script>
+</body>
+</html>
