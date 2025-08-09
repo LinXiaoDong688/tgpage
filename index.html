@@ -471,254 +471,294 @@
             <button onclick="shareResult()">分享你的结果</button>
         </div>
         <div class="music-credit">
+			<p>所有文案均来自于Ai大模型</p>
             <p>背景音乐来源：<a href="https://freesound.org/people/GregorQuendel/sounds/714250/" target="_blank">Beethoven - Romance in F major, Op.50 (Piano) by GregorQuendel</a>
 			</p>
 
 			<p><a href="https://freesound.org/people/Universfield/sounds/713229/" target="_blank">Emotional Sad Atmosphere with Piano and Violin by Universfield</a>.</p>
         </div>
     </div>
+<script>
+    let currentQuestion = 1;
+    let totalScore = 0;
+    let aCount = 0, dCount = 0;
+    const questions = document.querySelectorAll('.question');
+    const resultDiv = document.getElementById('result');
+    const scoreDiv = document.getElementById('score');
+    const scoreBar = document.getElementById('scoreBar');
+    const commentDiv = document.getElementById('comment');
+    const loadingDiv = document.getElementById('loading');
+    const bgm1 = document.getElementById('bgm1');
+    const bgm2 = document.getElementById('bgm2');
+    let currentBGM = bgm1;
 
-    <script>
-        let currentQuestion = 1;
-        let totalScore = 0;
-        let aCount = 0, dCount = 0;
-        const questions = document.querySelectorAll('.question');
-        const resultDiv = document.getElementById('result');
-        const scoreDiv = document.getElementById('score');
-        const scoreBar = document.getElementById('scoreBar');
-        const commentDiv = document.getElementById('comment');
-        const loadingDiv = document.getElementById('loading');
-        const bgm1 = document.getElementById('bgm1');
-        const bgm2 = document.getElementById('bgm2');
-        let currentBGM = bgm1;
+    // 小雅的反馈
+    const responses = {
+        1: { '10': '小雅：嗯，谢谢。', '5': '小雅：好吧。', '0': '小雅：……', '-5': '小雅：你干嘛生气？' },
+        2: { '10': '小雅：你真大方！', '5': '小雅：行吧。', '0': '小雅：随便。', '-5': '小雅：这么小气干嘛？' },
+        3: { '10': '小雅：嘿嘿，开心！', '5': '小雅：嗯，谢谢点赞。', '0': '小雅：你看了吗？', '-10': '小雅：你干嘛不让我发？' },
+        4: { '10': '小雅：好开心！', '5': '小雅：嗯，有道理。', '0': '小雅：随便吧。', '-5': '小雅：旧的也能用？' },
+        5: { '10': '小雅：你真好！', '5': '小雅：好，点好了。', '0': '小雅：那算了。', '-5': '小雅：你管我吃什么！' },
+        6: { '10': '小雅：你真棒！', '5': '小雅：也好。', '0': '小雅：无所谓啦。', '-10': '小雅：你怎么这样？' },
+        7: { '10': '小雅：真的吗？开心！', '5': '小雅：嗯，行吧。', '0': '小雅：随便你。', '-10': '小雅：你什么意思？' },
+        8: { '10': '小雅：太好了！', '5': '小雅：好吧，玩得开心。', '0': '小雅：你忙吧。', '-10': '小雅：你干嘛这么说？' },
+        9: { '10': '小雅：谢谢你！', '5': '小雅：嗯，知道了。', '0': '小雅：算了。', '-10': '小雅：你怎么这样！' },
+        10: { '10': '小雅：好，聊工作吧。', '5': '小雅：嗯，知道了。', '0': '小雅：你想啥呢？', '-10': '小雅：你干嘛这样问？' },
+        11: { '15': '小雅：你太好了！', '5': '小雅：行吧，平价也行。', '0': '小雅：随便。', '-15': '小雅：你至于吗？' },
+        12: { '15': '小雅：谢谢你陪我！', '5': '小雅：好，微信聊。', '0': '小雅：行吧，改天。', '-15': '小雅：你怎么这样？' },
+        13: { '15': '小雅：你真贴心！', '5': '小雅：嗯，下次吧。', '0': '小雅：……', '-15': '小雅：你干嘛怪我？' },
+        14: { '10': '小雅：就是同事啊。', '5': '小雅：嗯，行。', '0': '小雅：你干嘛不说话？', '-15': '小雅：你什么意思？' },
+        15: { '15': '小雅：太好了！', '5': '小雅：乌龟？想想吧。', '0': '小雅：好吧，不养了。', '-15': '小雅：你干嘛反对？' },
+        16: { '15': '小雅：谢谢你……', '5': '小雅：嗯，冷静下。', '0': '小雅：你怎么不说话？', '-20': '小雅：你还生气？' },
+        17: { '15': '小雅：就是卡了而已。', '5': '小雅：嗯，没啥。', '0': '小雅：你干嘛问这个？', '-20': '小雅：你不信任我？' },
+        18: { '15': '小雅：谢谢支持！', '5': '小雅：好，试试吧。', '0': '小雅：你不支持我？', '-20': '小雅：你怎么这样？' },
+        19: { '15': '小雅：真的？好期待！', '5': '小雅：嗯，聊聊吧。', '0': '小雅：随便你。', '-20': '小雅：你干嘛骂我闺蜜？' },
+        20: { '15': '小雅：我跟他没啥。', '5': '小雅：嗯，知道了。', '0': '小雅：你干嘛偷看？', '-20': '小雅：你凭什么这么说？' },
+        21: { '20': '小雅：好吧，谢谢你。', '5': '小雅：嗯，算了。', '0': '小雅：你觉得是小事？', '-25': '小雅：你还怪我？' },
+        22: { '20': '小雅：就是吃个饭。', '5': '小雅：嗯，下次说。', '0': '小雅：你干嘛不理我？', '-25': '小雅：你有病吧？' },
+        23: { '20': '小雅：谢谢你理解。', '5': '小雅：嗯，聊聊吧。', '0': '小雅：随便你。', '-25': '小雅：你说什么？' },
+        24: { '20': '小雅：谢谢你关心。', '5': '小雅：没事吧。', '0': '小雅：你看到了？', '-25': '小雅：你故意的？' },
+        25: { '20': '小雅：好，我相信你。', '5': '小雅：嗯，慢慢来。', '0': '小雅：你觉得没问题？', '-25': '小雅：你还怪我？' },
+        26: { '25': '小雅：好，我们聊聊。', '5': '小雅：嗯，我想想。', '0': '小雅：随便你吧。', '-30': '小雅：你够了吧！' },
+        27: { '25': '小雅：好，我明白。', '5': '小雅：嗯，行吧。', '0': '小雅：你偷看我手机？', '-30': '小雅：你太过分了！' },
+        28: { '25': '小雅：谢谢你……', '5': '小雅：好，我想想。', '0': '小雅：你没话说了？', '-30': '小雅：你什么意思？' },
+        29: { '25': '小雅：好，我们试试。', '5': '小雅：嗯，行吧。', '0': '小雅：你觉得没事？', '-30': '小雅：你还怪我？' },
+        30: { '30': '小雅：好，我们谈谈。', '5': '小雅：嗯，谢谢。', '0': '小雅：……', '-35': '小雅：你够了！' }
+    };
 
-        // 小雅的反馈
-        const responses = {
-            1: { '10': '小雅：嗯，谢谢。', '5': '小雅：好吧。', '0': '小雅：……', '-5': '小雅：你干嘛生气？' },
-            2: { '10': '小雅：你真大方！', '5': '小雅：行吧。', '0': '小雅：随便。', '-5': '小雅：这么小气干嘛？' },
-            3: { '10': '小雅：嘿嘿，开心！', '5': '小雅：嗯，谢谢点赞。', '0': '小雅：你看了吗？', '-10': '小雅：你干嘛不让我发？' },
-            4: { '10': '小雅：好开心！', '5': '小雅：嗯，有道理。', '0': '小雅：随便吧。', '-5': '小雅：旧的也能用？' },
-            5: { '10': '小雅：你真好！', '5': '小雅：好，点好了。', '0': '小雅：那算了。', '-5': '小雅：你管我吃什么！' },
-            6: { '10': '小雅：你真棒！', '5': '小雅：也好。', '0': '小雅：无所谓啦。', '-10': '小雅：你怎么这样？' },
-            7: { '10': '小雅：真的吗？开心！', '5': '小雅：嗯，行吧。', '0': '小雅：随便你。', '-10': '小雅：你什么意思？' },
-            8: { '10': '小雅：太好了！', '5': '小雅：好吧，玩得开心。', '0': '小雅：你忙吧。', '-10': '小雅：你干嘛这么说？' },
-            9: { '10': '小雅：谢谢你！', '5': '小雅：嗯，知道了。', '0': '小雅：算了。', '-10': '小雅：你怎么这样！' },
-            10: { '10': '小雅：好，聊工作吧。', '5': '小雅：嗯，知道了。', '0': '小雅：你想啥呢？', '-10': '小雅：你干嘛这样问？' },
-            11: { '15': '小雅：你太好了！', '5': '小雅：行吧，平价也行。', '0': '小雅：随便。', '-15': '小雅：你至于吗？' },
-            12: { '15': '小雅：谢谢你陪我！', '5': '小雅：好，微信聊。', '0': '小雅：行吧，改天。', '-15': '小雅：你怎么这样？' },
-            13: { '15': '小雅：你真贴心！', '5': '小雅：嗯，下次吧。', '0': '小雅：……', '-15': '小雅：你干嘛怪我？' },
-            14: { '10': '小雅：就是同事啊。', '5': '小雅：嗯，行。', '0': '小雅：你干嘛不说话？', '-15': '小雅：你什么意思？' },
-            15: { '15': '小雅：太好了！', '5': '小雅：乌龟？想想吧。', '0': '小雅：好吧，不养了。', '-15': '小雅：你干嘛反对？' },
-            16: { '15': '小雅：谢谢你……', '5': '小雅：嗯，冷静下。', '0': '小雅：你怎么不说话？', '-20': '小雅：你还生气？' },
-            17: { '15': '小雅：就是卡了而已。', '5': '小雅：嗯，没啥。', '0': '小雅：你干嘛问这个？', '-20': '小雅：你不信任我？' },
-            18: { '15': '小雅：谢谢支持！', '5': '小雅：好，试试吧。', '0': '小雅：你不支持我？', '-20': '小雅：你怎么这样？' },
-            19: { '15': '小雅：真的？好期待！', '5': '小雅：嗯，聊聊吧。', '0': '小雅：随便你。', '-20': '小雅：你干嘛骂我闺蜜？' },
-            20: { '15': '小雅：我跟他没啥。', '5': '小雅：嗯，知道了。', '0': '小雅：你干嘛偷看？', '-20': '小雅：你凭什么这么说？' },
-            21: { '20': '小雅：好吧，谢谢你。', '5': '小雅：嗯，算了。', '0': '小雅：你觉得是小事？', '-25': '小雅：你还怪我？' },
-            22: { '20': '小雅：就是吃个饭。', '5': '小雅：嗯，下次说。', '0': '小雅：你干嘛不理我？', '-25': '小雅：你有病吧？' },
-            23: { '20': '小雅：谢谢你理解。', '5': '小雅：嗯，聊聊吧。', '0': '小雅：随便你。', '-25': '小雅：你说什么？' },
-            24: { '20': '小雅：谢谢你关心。', '5': '小雅：没事吧。', '0': '小雅：你看到了？', '-25': '小雅：你故意的？' },
-            25: { '20': '小雅：好，我相信你。', '5': '小雅：嗯，慢慢来。', '0': '小雅：你觉得没问题？', '-25': '小雅：你还怪我？' },
-            26: { '25': '小雅：好，我们聊聊。', '5': '小雅：嗯，我想想。', '0': '小雅：随便你吧。', '-30': '小雅：你够了吧！' },
-            27: { '25': '小雅：好，我明白。', '5': '小雅：嗯，行吧。', '0': '小雅：你偷看我手机？', '-30': '小雅：你太过分了！' },
-            28: { '25': '小雅：谢谢你……', '5': '小雅：好，我想想。', '0': '小雅：你没话说了？', '-30': '小雅：你什么意思？' },
-            29: { '25': '小雅：好，我们试试。', '5': '小雅：嗯，行吧。', '0': '小雅：你觉得没事？', '-30': '小雅：你还怪我？' },
-            30: { '30': '小雅：好，我们谈谈。', '5': '小雅：嗯，谢谢。', '0': '小雅：……', '-35': '小雅：你够了！' }
-        };
-
-        // 加载动画
-        window.addEventListener('load', () => {
-            const resources = [bgm1, bgm2];
-            let loaded = 0;
-            resources.forEach(audio => {
-                audio.addEventListener('canplaythrough', () => {
-                    loaded++;
-                    if (loaded === resources.length) {
-                        setTimeout(() => {
-                            loadingDiv.style.display = 'none';
-                            document.querySelector('.container').style.display = 'block';
-                            bgm1.volume = 0.2;
-                            bgm1.play().catch(e => console.error('BGM1 play error:', e));
-                        }, 500);
-                    }
-                });
-                audio.load();
-            });
-            loadingDiv.addEventListener('click', () => {
-                loadingDiv.style.display = 'none';
-                document.querySelector('.container').style.display = 'block';
-                bgm1.volume = 0.2;
-                bgm1.play().catch(e => console.error('BGM1 play error:', e));
-            });
-        });
-
-        // BGM渐变切换
-function crossfadeBGM(nextBGM) {
-    if (currentBGM === nextBGM) return;
-    const fadeOut = setInterval(() => {
-        if (currentBGM.volume > 0.05) {
-            currentBGM.volume -= 0.05;
-        } else {
-            clearInterval(fadeOut);
-            currentBGM.pause();
-            currentBGM.currentTime = 0;
-            currentBGM.volume = 0.2;
-            nextBGM.volume = 0;
-            nextBGM.play().catch(e => console.error('BGM play error:', e));
-            const fadeIn = setInterval(() => {
-                if (nextBGM.volume < 0.2) {
-                    nextBGM.volume += 0.05;
-                } else {
-                    clearInterval(fadeIn);
-                    nextBGM.volume = 0.2;
+    // 加载动画
+    window.addEventListener('load', () => {
+        const resources = [bgm1, bgm2];
+        let loaded = 0;
+        resources.forEach(audio => {
+            audio.addEventListener('canplaythrough', () => {
+                loaded++;
+                if (loaded === resources.length) {
+                    setTimeout(() => {
+                        loadingDiv.style.display = 'none';
+                        document.querySelector('.container').style.display = 'block';
+                        bgm1.volume = 0.2;
+                        bgm1.play().catch(e => console.error('BGM1 play error:', e));
+                        setupBGMLoop(bgm1); // 初始化循环逻辑
+                    }, 500);
                 }
-            }, 50);
-            currentBGM = nextBGM;
-        }
-    }, 50);
-}
+            });
+            audio.load();
+        });
+        loadingDiv.addEventListener('click', () => {
+            loadingDiv.style.display = 'none';
+            document.querySelector('.container').style.display = 'block';
+            bgm1.volume = 0.2;
+            bgm1.play().catch(e => console.error('BGM1 play error:', e));
+            setupBGMLoop(bgm1); // 初始化循环逻辑
+        });
+    });
 
-        // 更新BGM
-function updateBGM() {
-    if (currentQuestion <= 10 && currentBGM !== bgm1) {
-        crossfadeBGM(bgm1);
-    } else if (currentQuestion >= 11 && currentBGM !== bgm2) {
-        crossfadeBGM(bgm2);
+    // 设置音乐循环和渐变切换
+    function setupBGMLoop(bgm) {
+        bgm.addEventListener('timeupdate', () => {
+            // 检测音乐是否接近结束（最后2秒）
+            if (bgm.duration - bgm.currentTime <= 2 && !bgm.dataset.fading) {
+                bgm.dataset.fading = 'true'; // 标记为正在淡出，防止重复触发
+                fadeOutAndLoop(bgm);
+            }
+        });
+        bgm.addEventListener('ended', () => {
+            // 确保在极端情况下（timeupdate 未触发）也能循环
+            fadeOutAndLoop(bgm);
+        });
     }
+
+    // 淡出并循环播放
+    function fadeOutAndLoop(bgm) {
+        const fadeOut = setInterval(() => {
+            if (bgm.volume > 0.05) {
+                bgm.volume -= 0.05;
+            } else {
+                clearInterval(fadeOut);
+                bgm.volume = 0;
+                bgm.currentTime = 0; // 重置到开头
+                bgm.play().catch(e => console.error('BGM play error:', e));
+                const fadeIn = setInterval(() => {
+                    if (bgm.volume < 0.2) {
+                        bgm.volume += 0.05;
+                    } else {
+                        clearInterval(fadeIn);
+                        bgm.volume = 0.2;
+                        bgm.dataset.fading = ''; // 清除淡出标记
+                    }
+                }, 50);
+            }
+        }, 50);
+    }
+
+    // BGM渐变切换（用于题目切换时的音乐切换）
+    function crossfadeBGM(nextBGM) {
+        if (currentBGM === nextBGM) return;
+        const fadeOut = setInterval(() => {
+            if (currentBGM.volume > 0.05) {
+                currentBGM.volume -= 0.05;
+            } else {
+                clearInterval(fadeOut);
+                currentBGM.pause();
+                currentBGM.currentTime = 0;
+                currentBGM.volume = 0.2;
+                nextBGM.volume = 0;
+                nextBGM.play().catch(e => console.error('BGM play error:', e));
+                setupBGMLoop(nextBGM); // 为新音乐设置循环逻辑
+                const fadeIn = setInterval(() => {
+                    if (nextBGM.volume < 0.2) {
+                        nextBGM.volume += 0.05;
+                    } else {
+                        clearInterval(fadeIn);
+                        nextBGM.volume = 0.2;
+                    }
+                }, 50);
+                currentBGM = nextBGM;
+            }
+        }, 50);
+    }
+
+    // 更新BGM
+    function updateBGM() {
+        const targetBGM = currentQuestion <= 10 ? bgm1 : bgm2;
+        if (currentBGM !== targetBGM) {
+            crossfadeBGM(targetBGM);
+        }
+    }
+
+    // 显示第一题
+    document.querySelector('.container').style.display = 'none';
+    document.querySelector('.question[data-index="1"]').classList.add('active');
+
+    // 消息框交互
+    function showResponse(responseDiv, score) {
+        responseDiv.textContent = responses[currentQuestion][score];
+        responseDiv.classList.add('active');
+        responseDiv.style.display = 'block';
+
+        responseDiv.removeEventListener('touchstart', handleTouchStart);
+        responseDiv.removeEventListener('touchmove', handleTouchMove);
+
+        if (window.innerWidth <= 600) {
+            let touchStartY = 0;
+            function handleTouchStart(e) {
+                touchStartY = e.touches[0].clientY;
+            }
+            function handleTouchMove(e) {
+                const deltaY = e.touches[0].clientY - touchStartY;
+                if (deltaY < -50) {
+                    responseDiv.classList.remove('active');
+                    responseDiv.classList.add('swipe-up');
+                    setTimeout(() => {
+                        responseDiv.classList.remove('swipe-up');
+                        responseDiv.style.display = 'none';
+                    }, 300);
+                }
+            }
+            responseDiv.addEventListener('touchstart', handleTouchStart);
+            responseDiv.addEventListener('touchmove', handleTouchMove);
+        }
+
+        const closeBtn = responseDiv.querySelector('.close-btn');
+        if (closeBtn) {
+            closeBtn.removeEventListener('click', handleClose);
+            function handleClose() {
+                responseDiv.classList.remove('active');
+                responseDiv.style.display = 'none';
+            }
+            closeBtn.addEventListener('click', handleClose);
+        }
+    }
+
+    // 选项点击事件
+    document.querySelectorAll('.option').forEach(option => {
+        option.addEventListener('click', () => {
+            const score = parseInt(option.dataset.score);
+            totalScore += score;
+            if (option.textContent.startsWith('A.')) aCount++;
+            if (option.textContent.startsWith('D.')) dCount++;
+
+            const current = document.querySelector('.question.active');
+            const responseDiv = current.querySelector('.response');
+            showResponse(responseDiv, score);
+
+            setTimeout(() => {
+                responseDiv.classList.remove('active');
+                responseDiv.style.display = 'none';
+                current.classList.remove('active');
+                current.style.display = 'none';
+                if (currentQuestion < questions.length) {
+                    currentQuestion++;
+                    const nextQuestion = document.querySelector(`.question[data-index="${currentQuestion}"]`);
+                    nextQuestion.classList.add('active');
+                    nextQuestion.style.display = 'block';
+                    document.body.style.backgroundColor = nextQuestion.dataset.bg;
+                    updateBGM();
+                } else {
+                    showResult();
+                }
+            }, 1500);
+        });
+    });
+
+    // 动态显示分数
+    function showResult() {
+        questions.forEach(q => q.style.display = 'none');
+        resultDiv.style.display = 'block';
+        let bgColor = '#ffebee';
+        if (totalScore >= 750 || totalScore <= 249) {
+            bgColor = '#b71c1c';
+        } else if (totalScore >= 250 && totalScore <= 749) {
+            bgColor = '#4caf50';
+        }
+        document.body.style.backgroundColor = bgColor;
+
+        let displayScore = 0;
+        const increment = totalScore >= 0 ? 10 : -10;
+        const interval = setInterval(() => {
+            if ((increment > 0 && displayScore >= totalScore) || (increment < 0 && displayScore <= totalScore)) {
+                clearInterval(interval);
+                scoreDiv.textContent = totalScore;
+                scoreBar.style.width = `${Math.min((totalScore + 1000) / 2000 * 100, 100)}%`;
+                showComment();
+            } else {
+                if (Math.abs(displayScore - totalScore) < 100 && Math.random() > 0.7) {
+                    setTimeout(() => {}, 500);
+                }
+                displayScore += increment;
+                scoreDiv.textContent = displayScore;
+                scoreBar.style.width = `${Math.min((displayScore + 1000) / 2000 * 100, 100)}%`;
+            }
+        }, 50);
+        currentBGM.pause();
+    }
+
+    // 评语
+function showComment() {
+    let comment = '';
+    if (totalScore >= 350) {
+        comment = '你对爱情全心全意，愿意为对方付出一切，温柔又体贴。但爱情如舞，需双方共谱节奏，适当保留自我，才能让感情更持久闪耀！';
+    } else if (totalScore >= 200) {
+        comment = '你的恋爱方式温暖且理性，懂得关心也保持分寸。继续用心沟通，让彼此的心更近，爱情会如花般绽放！';
+    } else if (totalScore >= 125) {
+        comment = '你可能在爱情中有些谨慎，保护自己的心之余，别忘了多倾听对方的声音。试着迈出一步，爱情需要双向的勇气与理解！';
+    } else {
+        comment = '爱情对你来说或许还有些陌生，但没关系，每颗心都有找到归宿的可能。多一些耐心与包容，你会发现爱的更多可能！';
+    }
+    commentDiv.textContent = comment + ' 爱情是相互的旅程，愿你用真心与智慧，找到属于你的幸福光芒！';
 }
 
-        // 显示第一题
-        document.querySelector('.container').style.display = 'none';
-        document.querySelector('.question[data-index="1"]').classList.add('active');
 
-        // 消息框交互
-        function showResponse(responseDiv, score) {
-            responseDiv.textContent = responses[currentQuestion][score];
-            responseDiv.classList.add('active');
-            responseDiv.style.display = 'block';
+    // 分享结果
+    function shareResult() {
+        const text = `我在《恋爱周期情景测试》得了${totalScore}分！${commentDiv.textContent} 快来测测你的恋爱表现吧！https://linxiaodong688.github.io/tgpage/`;
+        navigator.clipboard.writeText(text);
+        alert('结果已复制到剪贴板，粘贴到微信/QQ分享吧！');
+    }
+</script>
 
-            responseDiv.removeEventListener('touchstart', handleTouchStart);
-            responseDiv.removeEventListener('touchmove', handleTouchMove);
-
-            if (window.innerWidth <= 600) {
-                let touchStartY = 0;
-                function handleTouchStart(e) {
-                    touchStartY = e.touches[0].clientY;
-                }
-                function handleTouchMove(e) {
-                    const deltaY = e.touches[0].clientY - touchStartY;
-                    if (deltaY < -50) {
-                        responseDiv.classList.remove('active');
-                        responseDiv.classList.add('swipe-up');
-                        setTimeout(() => {
-                            responseDiv.classList.remove('swipe-up');
-                            responseDiv.style.display = 'none';
-                        }, 300);
-                    }
-                }
-                responseDiv.addEventListener('touchstart', handleTouchStart);
-                responseDiv.addEventListener('touchmove', handleTouchMove);
-            }
-
-            const closeBtn = responseDiv.querySelector('.close-btn');
-            if (closeBtn) {
-                closeBtn.removeEventListener('click', handleClose);
-                function handleClose() {
-                    responseDiv.classList.remove('active');
-                    responseDiv.style.display = 'none';
-                }
-                closeBtn.addEventListener('click', handleClose);
-            }
-        }
-
-        // 选项点击事件
-        document.querySelectorAll('.option').forEach(option => {
-            option.addEventListener('click', () => {
-                const score = parseInt(option.dataset.score);
-                totalScore += score;
-                if (option.textContent.startsWith('A.')) aCount++;
-                if (option.textContent.startsWith('D.')) dCount++;
-
-                const current = document.querySelector('.question.active');
-                const responseDiv = current.querySelector('.response');
-                showResponse(responseDiv, score);
-
-                setTimeout(() => {
-                    responseDiv.classList.remove('active');
-                    responseDiv.style.display = 'none';
-                    current.classList.remove('active');
-                    current.style.display = 'none';
-                    if (currentQuestion < questions.length) {
-                        currentQuestion++;
-                        const nextQuestion = document.querySelector(`.question[data-index="${currentQuestion}"]`);
-                        nextQuestion.classList.add('active');
-                        nextQuestion.style.display = 'block';
-                        document.body.style.backgroundColor = nextQuestion.dataset.bg;
-                        updateBGM();
-                    } else {
-                        showResult();
-                    }
-                }, 1500);
-            });
-        });
-
-        // 动态显示分数
-        function showResult() {
-            questions.forEach(q => q.style.display = 'none');
-            resultDiv.style.display = 'block';
-            let bgColor = '#ffebee';
-            if (totalScore >= 750 || totalScore <= 249) {
-                bgColor = '#b71c1c';
-            } else if (totalScore >= 250 && totalScore <= 749) {
-                bgColor = '#4caf50';
-            }
-            document.body.style.backgroundColor = bgColor;
-
-            let displayScore = 0;
-            const increment = totalScore >= 0 ? 10 : -10;
-            const interval = setInterval(() => {
-                if ((increment > 0 && displayScore >= totalScore) || (increment < 0 && displayScore <= totalScore)) {
-                    clearInterval(interval);
-                    scoreDiv.textContent = totalScore;
-                    scoreBar.style.width = `${Math.min((totalScore + 1000) / 2000 * 100, 100)}%`;
-                    showComment();
-                } else {
-                    if (Math.abs(displayScore - totalScore) < 100 && Math.random() > 0.7) {
-                        setTimeout(() => {}, 500);
-                    }
-                    displayScore += increment;
-                    scoreDiv.textContent = displayScore;
-                    scoreBar.style.width = `${Math.min((displayScore + 1000) / 2000 * 100, 100)}%`;
-                }
-            }, 50);
-            currentBGM.pause();
-        }
-
-        // 评语
-        function showComment() {
-            let comment = '';
-            if (totalScore >= 750) {
-                comment = aCount > 15 ? '你很用心，但别太迁就，爱情需要平衡。' : '你是恋爱高手，懂得付出但也别忘了自己！';
-            } else if (totalScore >= 500) {
-                comment = '你还不错，但有些时候需要更用心，多沟通哦！';
-            } else if (totalScore >= 250) {
-                comment = '你有点自我了，多站在对方角度想想，爱情需要双向奔赴！';
-            } else if (totalScore >= 0) {
-                comment = '你的恋爱方式有点危险，容易翻车，试着多理解对方吧！';
-            } else {
-                comment = dCount > 15 ? '你可能太冷漠了，多给点温暖，爱情才能长久！' : '哎呀，可能太迁就或太自我了，重新调整一下吧！';
-            }
-            commentDiv.textContent = comment + ' 不管怎样，爱情需要真心和智慧，加油找到属于你的幸福！';
-        }
-
-        // 分享结果
-        function shareResult() {
-            const text = `我在《恋爱周期情景测试》得了${totalScore}分！${commentDiv.textContent} 快来测测你的恋爱表现吧！https://linxiaodong688.github.io/tgpage/`;
-            navigator.clipboard.writeText(text);
-            alert('结果已复制到剪贴板，粘贴到微信/QQ分享吧！');
-        }
-    </script>
+   
 </body>
 </html>
-
 
