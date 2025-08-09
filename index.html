@@ -471,6 +471,7 @@
             <button onclick="shareResult()">分享你的结果</button>
         </div>
         <div class="music-credit">
+
 			<p>所有文案均来自于Ai大模型</p>
             <p>背景音乐来源：<a href="https://freesound.org/people/GregorQuendel/sounds/714250/" target="_blank">Beethoven - Romance in F major, Op.50 (Piano) by GregorQuendel</a>
 			</p>
@@ -734,20 +735,20 @@
         currentBGM.pause();
     }
 
-    // 评语
 function showComment() {
     let comment = '';
     if (totalScore >= 350) {
-        comment = '你对爱情全心全意，愿意为对方付出一切，温柔又体贴。但爱情如舞，需双方共谱节奏，适当保留自我，才能让感情更持久闪耀！';
+        comment = '你对爱情倾尽心力，愿意为她点亮星空，温柔且深情。但爱情如河流，需双方共划桨前行。保持你的真心，也别忘了为自己留一片天空！';
     } else if (totalScore >= 200) {
-        comment = '你的恋爱方式温暖且理性，懂得关心也保持分寸。继续用心沟通，让彼此的心更近，爱情会如花般绽放！';
+        comment = '你在爱中游刃有余，既温暖又理性，像稳稳的灯塔。继续用沟通点亮彼此的心，爱情会在双向奔赴中绽放光芒！';
     } else if (totalScore >= 125) {
-        comment = '你可能在爱情中有些谨慎，保护自己的心之余，别忘了多倾听对方的声音。试着迈出一步，爱情需要双向的勇气与理解！';
+        comment = '你或许在爱情中稍显谨慎，像守护城堡的骑士。试着敞开心扉，多倾听她的声音，也让自己的期待被看见，爱需要双方的勇气！';
     } else {
-        comment = '爱情对你来说或许还有些陌生，但没关系，每颗心都有找到归宿的可能。多一些耐心与包容，你会发现爱的更多可能！';
+        comment = '爱情对你来说像未解的谜，但每颗心都有找到归宿的可能。迈出一步，用真诚和耐心去理解对方，你会发现爱的温暖与力量！';
     }
-    commentDiv.textContent = comment + ' 爱情是相互的旅程，愿你用真心与智慧，找到属于你的幸福光芒！';
+    commentDiv.textContent = comment + ' 爱情是两颗心的共舞，愿你以真心与自信，找到属于你的幸福节奏！';
 }
+
 
 
     // 分享结果
