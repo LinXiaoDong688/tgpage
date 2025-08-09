@@ -1250,26 +1250,30 @@
            }
        }
     ];
+     let musicHasStarted = false;
+	
+function startMusic() {
+    // 检查音乐是否尚未开始，并且播放器当前是暂停的
+    if (!musicHasStarted && bgm1.paused) {
+        bgm1.volume = 0.2;
+        bgm1.play().catch(e => console.error('BGM1 play error:', e));
+        musicHasStarted = true; // 标记为已开始，确保此函数只生效一次
+    }
+}
+	
+   window.addEventListener('load', () => {
+    setTimeout(() => {
+        loadingDiv.style.display = 'none';
+        document.querySelector('.container').style.display = 'block';
+    }, 500);
 
-    // 加载动画
-    window.addEventListener('load', () => {
-        // 简化加载逻辑，假设资源能很快加载完成
-        setTimeout(() => {
-            loadingDiv.style.display = 'none';
-            document.querySelector('.container').style.display = 'block';
-            bgm1.volume = 0.2;
-            bgm1.play().catch(e => console.error('BGM1 play error:', e));
-        }, 500);
-
-        loadingDiv.addEventListener('click', () => {
-            loadingDiv.style.display = 'none';
-            document.querySelector('.container').style.display = 'block';
-            if (bgm1.paused) {
-                bgm1.volume = 0.2;
-                bgm1.play().catch(e => console.error('BGM1 play error on click:', e));
-            }
-        });
+    // 当用户点击加载界面时，调用我们新的启动函数
+    loadingDiv.addEventListener('click', () => {
+        loadingDiv.style.display = 'none';
+        document.querySelector('.container').style.display = 'block';
+        startMusic(); // <-- 调用新的函数
     });
+});
 
     // BGM渐变切换
     function crossfadeBGM(nextBGM) {
@@ -1364,7 +1368,7 @@
             closeBtn.addEventListener('click', handleClose);
         }
     }
-
+startMusic();
     // 选项点击事件 - 修复逻辑
     document.querySelectorAll('.option').forEach(option => {
         option.addEventListener('click', () => {
