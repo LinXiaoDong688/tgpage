@@ -179,10 +179,10 @@
         <div class="loader"></div>
         <p>正在加载资源，请稍候…<br>请打开音量，体验效果更佳！<br>如遇卡顿，点击空白处跳过加载</p>
     </div>
-    <audio id="bgm1" preload="auto">
+    <audio id="bgm1" preload="auto" loop>
         <source src="sweet_bgm.mp3" type="audio/mpeg">
     </audio>
-    <audio id="bgm2" preload="auto">
+    <audio id="bgm2" preload="auto" loop>
         <source src="sad_bgm.mp3" type="audio/mpeg">
     </audio>
     <div class="container">
@@ -191,276 +191,491 @@
             <p><strong>免责声明</strong>：本测试仅供娱乐，旨在让你体验恋爱中的真实抉择。请根据第一直觉选择答案，不要纠结！现实情况因人而异，测试结果仅供参考，祝你玩得开心！</p>
         </div>
         <div id="questions">
-            <!-- 题目1 -->
             <div class="question" data-index="1" data-bg="#ffebee">
-                <p><strong>第1题（恋爱第1周）</strong><br>你们刚恋爱，小雅约你下班后去吃火锅，她迟到了20分钟，笑着说堵车了。你会：</p>
-                <div class="option" data-score="10">A. 说没事，帮她点好她爱吃的菜。</div>
-                <div class="option" data-score="5">B. 笑笑说下次早点，但语气轻松。</div>
-                <div class="option" data-score="0">C. 不说话，等她自己解释。</div>
-                <div class="option" data-score="-5">D. 有点烦，说她不守时。</div>
-                <div class="response"><span class="close-btn">×</span></div>
+                <p><strong>第1题（恋爱第1周）</strong><br>你和小雅在公司团建认识，她主动跟你聊天，问你平时爱做什么。你会：</p>
+                <div class="option" data-score="10">A. 热情分享你的兴趣，邀她一起试试。</div>
+                <div class="option" data-score="5">B. 简单说几个爱好，观察她的反应。</div>
+                <div class="option" data-score="5">C. 笑着说没什么特别的，反问她喜欢什么。</div>
+                <div class="option" data-score="-5">D. 说你忙，没什么时间玩。</div>
+                <div class="response">小雅：<span id="response-1"></span><span class="close-btn">×</span></div>
             </div>
-            <!-- 题目2 -->
-            <div class="question" data-index="2" data-bg="#ffcdd2">
-                <p><strong>第2题（恋爱第1周）</strong><br>吃火锅时，小雅点了一堆贵的海鲜，你觉得有点超预算。你会：</p>
-                <div class="option" data-score="10">A. 笑着说随便点，今天你买单。</div>
-                <div class="option" data-score="5">B. 温和提醒她点适量，省点钱。</div>
-                <div class="option" data-score="0">C. 说你随便，她爱点啥点啥。</div>
-                <div class="option" data-score="-5">D. 说太贵了，劝她换便宜的。</div>
-                <div class="response"><span class="close-btn">×</span></div>
+            <div class="question" data-index="2" data-bg="#ffebee">
+                <p><strong>第2题（恋爱第1周）</strong><br>小雅在咖啡店忘了带钱包，尴尬地看向你。你会：</p>
+                <div class="option" data-score="10">A. 主动帮她付钱，说没事。</div>
+                <div class="option" data-score="5">B. 笑着说借她，下次请回来。</div>
+                <div class="option" data-score="5">C. 建议她用微信支付，看看能不能解决。</div>
+                <div class="option" data-score="-5">D. 说你也没带现金，帮不了。</div>
+                <div class="response">小雅：<span id="response-2"></span><span class="close-btn">×</span></div>
             </div>
-            <!-- 题目3 -->
-            <div class="question" data-index="3" data-bg="#ffc1cc">
-                <p><strong>第3题（恋爱第2周）</strong><br>小雅发朋友圈，晒了你们吃火锅的照片，配文“新生活开始了”。你会：</p>
-                <div class="option" data-score="10">A. 立刻点赞评论，写句甜蜜的话。</div>
-                <div class="option" data-score="5">B. 点赞但不评论，觉得有点羞。</div>
+            <div class="question" data-index="3" data-bg="#ffebee">
+                <p><strong>第3题（恋爱第2周）</strong><br>你想约小雅周末看电影，但她还没回复你的微信。你会：</p>
+                <div class="option" data-score="5">A. 再发一条，热情推荐一部新片。</div>
+                <div class="option" data-score="5">B. 等一天，看她回不回。</div>
+                <div class="option" data-score="5">C. 发条消息问她忙不忙，试探她态度。</div>
+                <div class="option" data-score="-5">D. 觉得自己主动太多，不再联系。</div>
+                <div class="response">小雅：<span id="response-3"></span><span class="close-btn">×</span></div>
+            </div>
+            <div class="question" data-index="4" data-bg="#ffebee">
+                <p><strong>第4题（恋爱第2周）</strong><br>小雅发朋友圈说“周末好无聊”，你看到后会：</p>
+                <div class="option" data-score="10">A. 点赞并评论，约她出去玩。</div>
+                <div class="option" data-score="5">B. 点赞，私聊问她有没啥计划。</div>
+                <div class="option" data-score="0">C. 看完没反应，觉得不熟。</div>
+                <div class="option" data-score="-5">D. 觉得她爱作，懒得理。</div>
+                <div class="response">小雅：<span id="response-4"></span><span class="close-btn">×</span></div>
+            </div>
+            <div class="question" data-index="5" data-bg="#ffebee">
+                <p><strong>第5题（恋爱第3周）</strong><br>你在公司帮小雅拿了份外卖，她笑着说谢谢。你会：</p>
+                <div class="option" data-score="10">A. 说小事一桩，聊聊她爱吃啥。</div>
+                <div class="option" data-score="5">B. 笑着说没事，下次她请。</div>
+                <div class="option" data-score="0">C. 点点头，没多说。</div>
+                <div class="option" data-score="-5">D. 说她下次自己拿，别麻烦人。</div>
+                <div class="response">小雅：<span id="response-5"></span><span class="close-btn">×</span></div>
+            </div>
+            <div class="question" data-index="6" data-bg="#ffebee">
+                <p><strong>第6题（恋爱第3周）</strong><br>你想带小雅一起认识朋友。你会：</p>
+                <div class="option" data-score="10">A. 直接邀她，介绍她给朋友。</div>
+                <div class="option" data-score="5">B. 先问她愿不愿意参加。</div>
+                <div class="option" data-score="0">C. 犹豫后决定不邀，怕她不自在。</div>
+                <div class="option" data-score="-5">D. 觉得她不熟，懒得带。</div>
+                <div class="response">小雅：<span id="response-6"></span><span class="close-btn">×</span></div>
+            </div>
+            <div class="question" data-index="7" data-bg="#ffebee">
+                <p><strong>第7题（恋爱第4周）</strong><br>小雅加班到很晚，发消息说好累。你会：</p>
+                <div class="option" data-score="10">A. 回复关心她，建议她早点休息。</div>
+                <div class="option" data-score="5">B. 说加班辛苦，聊聊她的工作。</div>
+                <div class="option" data-score="0">C. 简单回复“辛苦了”就没下文。</div>
+                <div class="option" data-score="-5">D. 说加班别抱怨，正常的事。</div>
+                <div class="response">小雅：<span id="response-7"></span><span class="close-btn">×</span></div>
+            </div>
+            <div class="question" data-index="8" data-bg="#ffebee">
+                <p><strong>第8题（恋爱第4周）</strong><br>你想送小雅一杯奶茶，但不知道她喜欢什么口味。你会：</p>
+                <div class="option" data-score="10">A. 直接买经典款，送她当惊喜。</div>
+                <div class="option" data-score="5">B. 先问她喜欢什么口味。</div>
+                <div class="option" data-score="0">C. 买了自己喜欢的，觉得她应该OK。</div>
+                <div class="option" data-score="-5">D. 觉得送奶茶没意义，不送。</div>
+                <div class="response">小雅：<span id="response-8"></span><span class="close-btn">×</span></div>
+            </div>
+            <div class="question" data-index="9" data-bg="#ffebee">
+                <p><strong>第9题（恋爱第5周）</strong><br>小雅在群聊里分享了个搞笑视频，你会：</p>
+                <div class="option" data-score="10">A. 私聊她，说视频好笑，顺便聊聊。</div>
+                <div class="option" data-score="5">B. 在群里回复，夸她品味好。</div>
+                <div class="option" data-score="0">C. 看完笑笑，没回复。</div>
+                <div class="option" data-score="-5">D. 觉得视频无聊，懒得理。</div>
+                <div class="response">小雅：<span id="response-9"></span><span class="close-btn">×</span></div>
+            </div>
+            <div class="question" data-index="10" data-bg="#ffebee">
+                <p><strong>第10题（恋爱第5周）</strong><br>你发现小雅喜欢听某位歌手，你也挺喜欢。你会：</p>
+                <div class="option" data-score="10">A. 分享一张专辑照片，约她一起听。</div>
+                <div class="option" data-score="5">B. 发条消息说你也喜欢，聊聊歌手。</div>
+                <div class="option" data-score="0">C. 没说什么，默默关注她的喜好。</div>
+                <div class="option" data-score="-5">D. 觉得没必要聊，兴趣不同没事。</div>
+                <div class="response">小雅：<span id="response-10"></span><span class="close-btn">×</span></div>
+            </div>
+            <div class="question" data-index="11" data-bg="#ffebee">
+                <p><strong>第11题（恋爱第6周）</strong><br>小雅说她周末想去逛街，问你有没有空。你会：</p>
+                <div class="option" data-score="10">A. 说有空，陪她去逛。</div>
+                <div class="option" data-score="5">B. 说有点忙，但可以抽时间。</div>
+                <div class="option" data-score="0">C. 问她想逛啥，决定再回复。</div>
+                <div class="option" data-score="-5">D. 说你没兴趣逛街，让她自己去。</div>
+                <div class="response">小雅：<span id="response-11"></span><span class="close-btn">×</span></div>
+            </div>
+            <div class="question" data-index="12" data-bg="#ffebee">
+                <p><strong>第12题（恋爱第6周）</strong><br>你不小心弄丢了小雅借你的书，她问你书呢。你会：</p>
+                <div class="option" data-score="10">A. 道歉并买本新的还她。</div>
+                <div class="option" data-score="5">B. 说不小心丢了，愿意赔。</div>
+                <div class="option" data-score="0">C. 说最近忙，回头找找。</div>
+                <div class="option" data-score="-5">D. 说书不重要，干嘛在意。</div>
+                <div class="response">小雅：<span id="response-12"></span><span class="close-btn">×</span></div>
+            </div>
+            <div class="question" data-index="13" data-bg="#ffebee">
+                <p><strong>第13题（恋爱第7周）</strong><br>小雅在朋友圈晒了新买的裙子，你会：</p>
+                <div class="option" data-score="10">A. 点赞评论，说她穿一定好看。</div>
+                <div class="option" data-score="5">B. 点赞，没评论。</div>
                 <div class="option" data-score="0">C. 看完没反应，觉得没必要。</div>
-                <div class="option" data-score="-10">D. 私聊说别发这些，太高调了。</div>
-                <div class="response"><span class="close-btn">×</span></div>
+                <div class="option" data-score="-5">D. 觉得她爱炫耀，懒得理。</div>
+                <div class="response">小雅：<span id="response-13"></span><span class="close-btn">×</span></div>
             </div>
-            <!-- 题目4 -->
-            <div class="question" data-index="4" data-bg="#ff8a80">
-                <p><strong>第4题（恋爱第2周）</strong><br>小雅说她想换新手机，纠结买iPhone还是国产机，问你意见。你会：</p>
-                <div class="option" data-score="10">A. 说iPhone好，鼓励她买喜欢的。</div>
-                <div class="option" data-score="5">B. 说国产机性价比高，建议她考虑。</div>
-                <div class="option" data-score="0">C. 说你不懂，随她选。</div>
-                <div class="option" data-score="-5">D. 说换手机没必要，旧的还能用。</div>
-                <div class="response"><span class="close-btn">×</span></div>
+            <div class="question" data-index="14" data-bg="#ffebee">
+                <p><strong>第14题（恋爱第7周）</strong><br>你想跟小雅表白，但有点紧张。你会：</p>
+                <div class="option" data-score="10">A. 鼓起勇气，直接表白。</div>
+                <div class="option" data-score="5">B. 先发消息试探她的态度。</div>
+                <div class="option" data-score="0">C. 再观察一阵，找合适机会。</div>
+                <div class="option" data-score="-5">D. 觉得自己没准备好，放弃表白。</div>
+                <div class="response">小雅：<span id="response-14"></span><span class="close-btn">×</span></div>
             </div>
-            <!-- 题目5 -->
-            <div class="question" data-index="5" data-bg="#ff8a80">
-                <p><strong>第5题（恋爱第3周）</strong><br>小雅下班后说饿了，想点奶茶和炸鸡外卖。你会：</p>
-                <div class="option" data-score="10">A. 帮她点她爱喝的奶茶和炸鸡，送到她家。</div>
-                <div class="option" data-score="5">B. 说好，但让她自己点，你付钱。</div>
-                <div class="option" data-score="0">C. 说太晚了，吃点家里的吧。</div>
-                <div class="option" data-score="-5">D. 说外卖不健康，劝她别吃。</div>
-                <div class="response"><span class="close-btn">×</span></div>
-            </div>
-            <!-- 题目6 -->
-            <div class="question" data-index="6" data-bg="#ff8a80">
-                <p><strong>第6题（恋爱第1个月）</strong><br>周末小雅想去网红甜品店吃蛋糕，但排队要1小时。你会：</p>
-                <div class="option" data-score="10">A. 陪她排队，边聊边等，哄她开心。</div>
-                <div class="option" data-score="5">B. 建议去另一家不排队的店，味道也行。</div>
-                <div class="option" data-score="0">C. 说排队太麻烦，随便吃点吧。</div>
-                <div class="option" data-score="-10">D. 说你不想去，让她自己去。</div>
-                <div class="response"><span class="close-btn">×</span></div>
-            </div>
-            <!-- 题目7 -->
-            <div class="question" data-index="7" data-bg="#ff8a80">
-                <p><strong>第7题（恋爱第1个月）</strong><br>小雅买了新衣服，发照片问你好不好看。你觉得一般但她很期待。你会：</p>
-                <div class="option" data-score="10">A. 夸她好看，说她穿啥都美。</div>
-                <div class="option" data-score="5">B. 说还行，建议她试试别的风格。</div>
-                <div class="option" data-score="0">C. 说你不懂，随她喜欢。</div>
-                <div class="option" data-score="-10">D. 说这件不太好看，劝她退了。</div>
-                <div class="response"><span class="close-btn">×</span></div>
-            </div>
-            <!-- 题目8 -->
-            <div class="question" data-index="8" data-bg="#ff8a80">
-                <p><strong>第8题（恋爱第1个月）</strong><br>小雅说她闺蜜约她去唱K，她问你要不要一起。你不爱唱歌。你会：</p>
-                <div class="option" data-score="10">A. 陪她去，试着融入她的朋友圈。</div>
-                <div class="option" data-score="5">B. 说你不去，但让她玩得开心。</div>
-                <div class="option" data-score="0">C. 说你忙，推辞不去。</div>
-                <div class="option" data-score="-10">D. 说你不喜欢她闺蜜，不想去。</div>
-                <div class="response"><span class="close-btn">×</span></div>
-            </div>
-            <!-- 题目9 -->
-            <div class="question" data-index="9" data-bg="#ef5350">
-                <p><strong>第9题（恋爱第2个月）</strong><br>小雅感冒了，发微信抱怨没人在乎她。你会：</p>
-                <div class="option" data-score="10">A. 买药送到她家，叮嘱她好好休息。</div>
-                <div class="option" data-score="5">B. 微信安慰她，让她多喝热水。</div>
+            <div class="question" data-index="15" data-bg="#ffebee">
+                <p><strong>第15题（恋爱第8周）</strong><br>小雅说她感冒了，微信里抱怨好难受。你会：</p>
+                <div class="option" data-score="10">A. 买药送到她公司，叮嘱她休息。</div>
+                <div class="option" data-score="5">B. 微信安慰，让她多喝热水。</div>
                 <div class="option" data-score="0">C. 说感冒没事，睡一觉就好。</div>
-                <div class="option" data-score="-10">D. 说她太矫情，小病别抱怨。</div>
-                <div class="response"><span class="close-btn">×</span></div>
+                <div class="option" data-score="-5">D. 说她别矫情，小病别抱怨。</div>
+                <div class="response">小雅：<span id="response-15"></span><span class="close-btn">×</span></div>
             </div>
-            <!-- 题目10 -->
-            <div class="question" data-index="10" data-bg="#ef5350">
-                <p><strong>第10题（恋爱第2个月）</strong><br>你发现小雅常跟一个男同事发微信，她说是工作上的事。你会：</p>
-                <div class="option" data-score="10">A. 信任她，主动问她工作情况。</div>
-                <div class="option" data-score="5">B. 温和说多注意点，免得误会。</div>
-                <div class="option" data-score="0">C. 旁敲侧击问她那男的是谁。</div>
-                <div class="option" data-score="-10">D. 质问她为什么跟男同事聊那么多。</div>
-                <div class="response"><span class="close-btn">×</span></div>
+        
+            <div class="question" data-index="16" data-bg="#ffcdd2">
+                <p><strong>第16题（恋爱第9周）</strong><br>小雅约你去网红餐厅吃饭，但排队要1小时。你会：</p>
+                <div class="option" data-score="10">A. 陪她排队，边聊边等。</div>
+                <div class="option" data-score="5">B. 建议去另一家味道不错的店。</div>
+                <div class="option" data-score="0">C. 说排队太麻烦，随便吃点。</div>
+                <div class="option" data-score="-10">D. 说你不想排，让她自己去。</div>
+                <div class="response">小雅：<span id="response-16"></span><span class="close-btn">×</span></div>
             </div>
-            <!-- 题目11 -->
-            <div class="question" data-index="11" data-bg="#ef5350">
-                <p><strong>第11题（恋爱第3个月）</strong><br>小雅说她想买个名牌包，价格是你一个月工资。你会：</p>
-                <div class="option" data-score="15">A. 咬牙买下来，送她当礼物。</div>
-                <div class="option" data-score="5">B. 建议买个平价但好看的包。</div>
-                <div class="option" data-score="0">C. 说你没意见，随她决定。</div>
-                <div class="option" data-score="-15">D. 说太贵了，买不起。</div>
-                <div class="response"><span class="close-btn">×</span></div>
+            <div class="question" data-index="17" data-bg="#ffcdd2">
+                <p><strong>第17题（恋爱第9周）</strong><br>你想熬夜看球赛，但小雅说太晚了。你会：</p>
+                <div class="option" data-score="-5">A. 放弃看球，陪她聊天。</div>
+                <div class="option" data-score="10">B. 提议看半场，明天陪她。</div>
+                <div class="option" data-score="5">C. 说你很想看，晚点再聊。</div>
+                <div class="option" data-score="-10">D. 坚持看完，不理她。</div>
+                <div class="response">小雅：<span id="response-17"></span><span class="close-btn">×</span></div>
             </div>
-            <!-- 题目12 -->
-            <div class="question" data-index="12" data-bg="#ef5350">
-                <p><strong>第12题（恋爱第3个月）</strong><br>小雅下班后心情不好，想让你陪她散步聊天。你刚加完班很累。你会：</p>
-                <div class="option" data-score="15">A. 去陪她散步，听她诉苦。</div>
-                <div class="option" data-score="5">B. 说你累了，微信聊聊吧。</div>
-                <div class="option" data-score="0">C. 说你也忙，改天再聊。</div>
-                <div class="option" data-score="-15">D. 说她想太多，劝她别emo。</div>
-                <div class="response"><span class="close-btn">×</span></div>
+            <div class="question" data-index="18" data-bg="#ffcdd2">
+                <p><strong>第18题（恋爱第10周）</strong><br>小雅发朋友圈晒你们约会照片，配文“开心”。你会：</p>
+                <div class="option" data-score="10">A. 点赞评论，写句甜蜜的话。</div>
+                <div class="option" data-score="5">B. 点赞，私聊说她发得不错。</div>
+                <div class="option" data-score="0">C. 看完没反应，觉得没必要。</div>
+                <div class="option" data-score="-10">D. 说别发这些，太高调了。</div>
+                <div class="response">小雅：<span id="response-18"></span><span class="close-btn">×</span></div>
             </div>
-            <!-- 题目13 -->
-            <div class="question" data-index="13" data-bg="#ef5350">
-                <p><strong>第13题（恋爱第4个月）</strong><br>小雅忘了你们约好的电影时间，临时说要加班。你会：</p>
-                <div class="option" data-score="15">A. 理解她，改天再约，送她杯咖啡。</div>
-                <div class="option" data-score="5">B. 说没事，约下次吧。</div>
-                <div class="option" data-score="0">C. 有点不爽，但没说什么。</div>
-                <div class="option" data-score="-15">D. 责怪她不重视你们约会。</div>
-                <div class="response"><span class="close-btn">×</span></div>
+            <div class="question" data-index="19" data-bg="#ffcdd2">
+                <p><strong>第19题（恋爱第10周）</strong><br>你加班到很晚，小雅微信问你怎么还不回消息。你会：</p>
+                <div class="option" data-score="10">A. 道歉，说明加班情况。</div>
+                <div class="option" data-score="5">B. 说忙完就回，简单回复。</div>
+                <div class="option" data-score="0">C. 说你忙，让她别催。</div>
+                <div class="option" data-score="-10">D. 不回，觉得她烦。</div>
+                <div class="response">小雅：<span id="response-19"></span><span class="close-btn">×</span></div>
             </div>
-            <!-- 题目14 -->
-            <div class="question" data-index="14" data-bg="#d32f2f">
-                <p><strong>第14题（恋爱第4个月）</strong><br>小雅朋友圈发了和男同事的合照，配文“工作小伙伴”。你会：</p>
-                <div class="option" data-score="10">A. 私下问她照片背景，语气平和。</div>
+            <div class="question" data-index="20" data-bg="#ffcdd2">
+                <p><strong>第20题（恋爱第11周）</strong><br>小雅说想买新手机，问你建议iPhone还是国产机。你会：</p>
+                <div class="option" data-score="10">A. 说iPhone好，鼓励她买喜欢的。</div>
+                <div class="option" data-score="5">B. 说国产机性价比高，建议考虑。</div>
+                <div class="option" data-score="0">C. 说你不懂，随她选。</div>
+                <div class="option" data-score="-5">D. 说旧的还能用，没必要换。</div>
+                <div class="response">小雅：<span id="response-20"></span><span class="close-btn">×</span></div>
+            </div>
+            <div class="question" data-index="21" data-bg="#ffcdd2">
+                <p><strong>第21题（恋爱第11周）</strong><br>你想和朋友去唱K，但小雅说她不太想去。你会：</p>
+                <div class="option" data-score="-5">A. 说不去唱了，陪她做别的。</div>
+                <div class="option" data-score="10">B. 提议一起去，融入她喜欢的活动。</div>
+                <div class="option" data-score="5">C. 说你先去，晚点再约她。</div>
+                <div class="option" data-score="-10">D. 坚持去唱，不理她。</div>
+                <div class="response">小雅：<span id="response-21"></span><span class="close-btn">×</span></div>
+            </div>
+            <div class="question" data-index="22" data-bg="#ffcdd2">
+                <p><strong>第22题（恋爱第12周）</strong><br>小雅点了一堆外卖，超了你们约好的预算。你会：</p>
+                <div class="option" data-score="10">A. 笑着说没事，你来付。</div>
+                <div class="option" data-score="5">B. 提醒她适量，省点钱。</div>
+                <div class="option" data-score="0">C. 说随便她，爱点啥点啥。</div>
+                <div class="option" data-score="-5">D. 说太贵了，劝她退掉。</div>
+                <div class="response">小雅：<span id="response-22"></span><span class="close-btn">×</span></div>
+            </div>
+            <div class="question" data-index="23" data-bg="#ffcdd2">
+                <p><strong>第23题（恋爱第12周）</strong><br>你不小心忘了小雅的生日，她有点不高兴。你会：</p>
+                <div class="option" data-score="10">A. 道歉，补送礼物。</div>
+                <div class="option" data-score="5">B. 说忘了但不是故意的，哄她。</div>
+                <div class="option" data-score="0">C. 说生日不重要，下次注意。</div>
+                <div class="option" data-score="-10">D. 说她太计较，小事而已。</div>
+                <div class="response">小雅：<span id="response-23"></span><span class="close-btn">×</span></div>
+            </div>
+            <div class="question" data-index="24" data-bg="#ffcdd2">
+                <p><strong>第24题（恋爱第13周）</strong><br>小雅说她闺蜜觉得你不够浪漫，你会：</p>
+                <div class="option" data-score="10">A. 计划个惊喜，证明自己。</div>
+                <div class="option" data-score="5">B. 问小雅是不是也这么觉得。</div>
+                <div class="option" data-score="0">C. 说你就这样，不用管别人。</div>
+                <div class="option" data-score="-10">D. 说她闺蜜多管闲事。</div>
+                <div class="response">小雅：<span id="response-24"></span><span class="close-btn">×</span></div>
+            </div>
+            <div class="question" data-index="25" data-bg="#ffcdd2">
+                <p><strong>第25题（恋爱第13周）</strong><br>你想周末宅家玩游戏，小雅说想出去玩。你会：</p>
+                <div class="option" data-score="-5">A. 放弃游戏，陪她出去。</div>
+                <div class="option" data-score="10">B. 提议玩一会游戏再陪她。</div>
+                <div class="option" data-score="5">C. 说你想休息，改天再约。</div>
+                <div class="option" data-score="-10">D. 坚持宅家，不理她。</div>
+                <div class="response">小雅：<span id="response-25"></span><span class="close-btn">×</span></div>
+            </div>
+            <div class="question" data-index="26" data-bg="#ffcdd2">
+                <p><strong>第26题（恋爱第14周）</strong><br>小雅说她工作压力大，想你陪她散步。你会：</p>
+                <div class="option" data-score="10">A. 陪她散步，倾听她诉苦。</div>
+                <div class="option" data-score="5">B. 说你也累，微信聊聊。</div>
+                <div class="option" data-score="0">C. 说改天再聊，你也忙。</div>
+                <div class="option" data-score="-10">D. 说她想太多，别emo。</div>
+                <div class="response">小雅：<span id="response-26"></span><span class="close-btn">×</span></div>
+            </div>
+            <div class="question" data-index="27" data-bg="#ffcdd2">
+                <p><strong>第27题（恋爱第14周）</strong><br>你不小心摔坏了小雅的耳机，她问你怎么办。你会：</p>
+                <div class="option" data-score="10">A. 道歉，买个新的赔她。</div>
+                <div class="option" data-score="5">B. 说会赔，但先看看修不修。</div>
+                <div class="option" data-score="0">C. 说不小心，回头处理。</div>
+                <div class="option" data-score="-10">D. 说耳机旧了，没啥大不了。</div>
+                <div class="response">小雅：<span id="response-27"></span><span class="close-btn">×</span></div>
+            </div>
+            <div class="question" data-index="28" data-bg="#ffcdd2">
+                <p><strong>第28题（恋爱第15周）</strong><br>小雅发朋友圈和男同事合照，写“工作小伙伴”。你会：</p>
+                <div class="option" data-score="10">A. 私聊问照片背景，语气平和。</div>
                 <div class="option" data-score="5">B. 点赞但心里有点不舒服。</div>
-                <div class="option" data-score="0">C. 不吭声，暗自观察她。</div>
-                <div class="option" data-score="-15">D. 发火问她是不是背着你搞暧昧。</div>
-                <div class="response"><span class="close-btn">×</span></div>
+                <div class="option" data-score="0">C. 不吭声，暗自观察。</div>
+                <div class="option" data-score="-10">D. 问她是不是搞暧昧。</div>
+                <div class="response">小雅：<span id="response-28"></span><span class="close-btn">×</span></div>
             </div>
-            <!-- 题目15 -->
-            <div class="question" data-index="15" data-bg="#d32f2f">
-                <p><strong>第15题（恋爱第5个月）</strong><br>小雅说她想养只猫，但你觉得养猫费时费钱。你会：</p>
-                <div class="option" data-score="15">A. 同意养，陪她一起照顾。</div>
-                <div class="option" data-score="5">B. 建议养简单点的宠物，比如乌龟。</div>
-                <div class="option" data-score="0">C. 说养猫太麻烦，劝她别养。</div>
+            <div class="question" data-index="29" data-bg="#ffcdd2">
+                <p><strong>第29题（恋爱第15周）</strong><br>你想去外地看演唱会，但小雅说路费太贵。你会：</p>
+                <div class="option" data-score="-5">A. 放弃计划，陪她做别的。</div>
+                <div class="option" data-score="10">B. 提议一起攒钱去看。</div>
+                <div class="option" data-score="5">C. 说你很想去，一个人去。</div>
+                <div class="option" data-score="-10">D. 说她不懂你的兴趣。</div>
+                <div class="response">小雅：<span id="response-29"></span><span class="close-btn">×</span></div>
+            </div>
+            <div class="question" data-index="30" data-bg="#ffcdd2">
+                <p><strong>第30题（恋爱第16周）</strong><br>小雅忘了你们约好的电影时间，说要加班。你会：</p>
+                <div class="option" data-score="10">A. 理解她，改天再约。</div>
+                <div class="option" data-score="5">B. 说没事，约下次吧。</div>
+                <div class="option" data-score="0">C. 有点不爽，但没说。</div>
+                <div class="option" data-score="-10">D. 说她不重视你们约会。</div>
+                <div class="response">小雅：<span id="response-30"></span><span class="close-btn">×</span></div>
+            </div>
+        
+            <div class="question" data-index="31" data-bg="#ef9a9a">
+                <p><strong>第31题（恋爱第17周）</strong><br>小雅常跟男同事聊微信，她说是工作需要。你会：</p>
+                <div class="option" data-score="15">A. 信任她，问她工作情况。</div>
+                <div class="option" data-score="5">B. 说注意点，免得误会。</div>
+                <div class="option" data-score="0">C. 旁敲侧击问那男的是谁。</div>
+                <div class="option" data-score="-15">D. 质问她为什么聊那么多。</div>
+                <div class="response">小雅：<span id="response-31"></span><span class="close-btn">×</span></div>
+            </div>
+            <div class="question" data-index="32" data-bg="#ef9a9a">
+                <p><strong>第32题（恋爱第17周）</strong><br>你因工作压力大，忘了回复小雅的微信，她不高兴。你会：</p>
+                <div class="option" data-score="15">A. 道歉，解释并哄她。</div>
+                <div class="option" data-score="5">B. 说你忙，晚点聊。</div>
+                <div class="option" data-score="0">C. 说她别太敏感。</div>
+                <div class="option" data-score="-15">D. 说她烦，忙着呢。</div>
+                <div class="response">小雅：<span id="response-32"></span><span class="close-btn">×</span></div>
+            </div>
+            <div class="question" data-index="33" data-bg="#ef9a9a">
+                <p><strong>第33题（恋爱第18周）</strong><br>小雅想买名牌包，价格是你一个月工资。你会：</p>
+                <div class="option" data-score="-10">A. 咬牙买下来当礼物。</div>
+                <div class="option" data-score="15">B. 建议买平价但好看的包。</div>
+                <div class="option" data-score="0">C. 说随便她，你没意见。</div>
+                <div class="option" data-score="-5">D. 说太贵买不起。</div>
+                <div class="response">小雅：<span id="response-33"></span><span class="close-btn">×</span></div>
+            </div>
+            <div class="question" data-index="34" data-bg="#ef9a9a">
+                <p><strong>第34题（恋爱第18周）</strong><br>你想和朋友去旅游，小雅说她不想你去。你会：</p>
+                <div class="option" data-score="-10">A. 取消计划，陪她。</div>
+                <div class="option" data-score="15">B. 商量时间，找折中方案。</div>
+                <div class="option" data-score="5">C. 说你很想去，晚点再谈。</div>
+                <div class="option" data-score="-15">D. 坚持去，不理她。</div>
+                <div class="response">小雅：<span id="response-34"></span><span class="close-btn">×</span></div>
+            </div>
+            <div class="question" data-index="35" data-bg="#ef9a9a">
+                <p><strong>第35题（恋爱第19周）</strong><br>小雅说她闺蜜觉得你们不合适，你会：</p>
+                <div class="option" data-score="15">A. 问小雅的想法，沟通解决。</div>
+                <div class="option" data-score="5">B. 说别管别人，你有信心。</div>
+                <div class="option" data-score="0">C. 觉得自己挺好，不理会。</div>
+                <div class="option" data-score="-15">D. 说她闺蜜多管闲事。</div>
+                <div class="response">小雅：<span id="response-35"></span><span class="close-btn">×</span></div>
+            </div>
+            <div class="question" data-index="36" data-bg="#ef9a9a">
+                <p><strong>第36题（恋爱第19周）</strong><br>你忘了你们的纪念日，小雅很生气。你会：</p>
+                <div class="option" data-score="15">A. 道歉，补办纪念活动。</div>
+                <div class="option" data-score="5">B. 说忘了但不是故意的。</div>
+                <div class="option" data-score="0">C. 说她太计较了。</div>
+                <div class="option" data-score="-15">D. 说纪念日没意义。</div>
+                <div class="response">小雅：<span id="response-36"></span><span class="close-btn">×</span></div>
+            </div>
+            <div class="question" data-index="37" data-bg="#ef9a9a">
+                <p><strong>第37题（恋爱第20周）</strong><br>小雅因工作压力对你发脾气，说你不关心她。你会：</p>
+                <div class="option" data-score="15">A. 安慰她，陪她缓解压力。</div>
+                <div class="option" data-score="5">B. 说你也累，劝她冷静。</div>
+                <div class="option" data-score="0">C. 沉默，等她消气。</div>
+                <div class="option" data-score="-15">D. 说她无理取闹。</div>
+                <div class="response">小雅：<span id="response-37"></span><span class="close-btn">×</span></div>
+            </div>
+            <div class="question" data-index="38" data-bg="#ef9a9a">
+                <p><strong>第38题（恋爱第20周）</strong><br>你想换工作到外地，小雅说她不想异地恋。你会：</p>
+                <div class="option" data-score="-10">A. 放弃换工作，留下来。</div>
+                <div class="option" data-score="15">B. 商量如何保持联系。</div>
+                <div class="option" data-score="5">C. 说你很想换，试试异地。</div>
+                <div class="option" data-score="-15">D. 说她不支持，分手吧。</div>
+                <div class="response">小雅：<span id="response-38"></span><span class="close-btn">×</span></div>
+            </div>
+            <div class="question" data-index="39" data-bg="#ef9a9a">
+                <p><strong>第39题（恋爱第21周）</strong><br>小雅说她想养猫，你觉得费时费钱。你会：</p>
+                <div class="option" data-score="15">A. 同意养，陪她照顾。</div>
+                <div class="option" data-score="5">B. 建议养简单宠物，如乌龟。</div>
+                <div class="option" data-score="0">C. 说养猫麻烦，劝别养。</div>
                 <div class="option" data-score="-15">D. 说你讨厌猫，坚决不养。</div>
-                <div class="response"><span class="close-btn">×</span></div>
+                <div class="response">小雅：<span id="response-39"></span><span class="close-btn">×</span></div>
             </div>
-            <!-- 题目16 -->
-            <div class="question" data-index="16" data-bg="#d32f2f">
-                <p><strong>第16题（恋爱第6个月）</strong><br>小雅因为工作压力大，冲你发脾气，说你不关心她。你会：</p>
-                <div class="option" data-score="15">A. 抱她安慰，陪她缓解压力。</div>
-                <div class="option" data-score="5">B. 说你也累，劝她冷静点。</div>
-                <div class="option" data-score="0">C. 沉默，等她自己消气。</div>
-                <div class="option" data-score="-20">D. 生气地说她无理取闹。</div>
-                <div class="response"><span class="close-btn">×</span></div>
+            <div class="question" data-index="40" data-bg="#ef9a9a">
+                <p><strong>第40题（恋爱第21周）</strong><br>你不小心看到小雅和前任的聊天，她说只是叙旧。你会：</p>
+                <div class="option" data-score="15">A. 平和问她情况，表达不安。</div>
+                <div class="option" data-score="5">B. 说相信她，但提醒保持距离。</div>
+                <div class="option" data-score="0">C. 暗自观察，不吭声。</div>
+                <div class="option" data-score="-15">D. 质问她是不是放不下前任。</div>
+                <div class="response">小雅：<span id="response-40"></span><span class="close-btn">×</span></div>
             </div>
-            <!-- 题目17 -->
-            <div class="question" data-index="17" data-bg="#d32f2f">
-                <p><strong>第17题（恋爱第6个月）</strong><br>你发现小雅删了你们的部分聊天记录，理由是手机卡。你会：</p>
-                <div class="option" data-score="15">A. 平和问她原因，表达你的疑惑。</div>
-                <div class="option" data-score="5">B. 不提，但暗中观察她。</div>
-                <div class="option" data-score="0">C. 直接问她是不是有事瞒你。</div>
-                <div class="option" data-score="-20">D. 发火说她不信任你。</div>
-                <div class="response"><span class="close-btn">×</span></div>
+            <div class="question" data-index="41" data-bg="#ef9a9a">
+                <p><strong>第41题（恋爱第22周）</strong><br>你因加班错过了小雅的聚会，她不高兴。你会：</p>
+                <div class="option" data-score="15">A. 道歉，约下次补偿。</div>
+                <div class="option" data-score="5">B. 说工作忙，解释情况。</div>
+                <div class="option" data-score="0">C. 说她该理解你。</div>
+                <div class="option" data-score="-15">D. 说她太敏感了。</div>
+                <div class="response">小雅：<span id="response-41"></span><span class="close-btn">×</span></div>
             </div>
-            <!-- 题目18 -->
-            <div class="question" data-index="18" data-bg="#d32f2f">
-                <p><strong>第18题（恋爱第7个月）</strong><br>小雅说她想去外地出差半年，可能会异地恋。你会：</p>
-                <div class="option" data-score="15">A. 支持她，承诺保持联系。</div>
-                <div class="option" data-score="5">B. 说异地恋难，但可以试试。</div>
-                <div class="option" data-score="0">C. 劝她别去，异地恋不靠谱。</div>
-                <div class="option" data-score="-20">D. 说你接受不了，可能会分手。</div>
-                <div class="response"><span class="close-btn">×</span></div>
+            <div class="question" data-index="42" data-bg="#ef9a9a">
+                <p><strong>第42题（恋爱第22周）</strong><br>小雅说她想去学跳舞，但课很贵。你会：</p>
+                <div class="option" data-score="15">A. 支持她，帮她报名。</div>
+                <div class="option" data-score="5">B. 说可以但得考虑预算。</div>
+                <div class="option" data-score="0">C. 说随便她，你没意见。</div>
+                <div class="option" data-score="-15">D. 说学跳舞没必要。</div>
+                <div class="response">小雅：<span id="response-42"></span><span class="close-btn">×</span></div>
             </div>
-            <!-- 题目19 -->
-            <div class="question" data-index="19" data-bg="#c62828">
-                <p><strong>第19题（恋爱第7个月）</strong><br>小雅闺蜜说你不够浪漫，小雅也暗示你不够主动。你会：</p>
-                <div class="option" data-score="15">A. 计划一个浪漫惊喜，改变她看法。</div>
-                <div class="option" data-score="5">B. 问她是不是觉得你不够好，沟通一下。</div>
-                <div class="option" data-score="0">C. 觉得自己已经够好了，不理会。</div>
-                <div class="option" data-score="-20">D. 生气地说她闺蜜多管闲事。</div>
-                <div class="response"><span class="close-btn">×</span></div>
+            <div class="question" data-index="43" data-bg="#ef9a9a">
+                <p><strong>第43题（恋爱第23周）</strong><br>你和朋友喝酒到很晚，小雅微信说担心你。你会：</p>
+                <div class="option" data-score="15">A. 回复说没事，感谢她关心。</div>
+                <div class="option" data-score="5">B. 说玩得开心，晚点聊。</div>
+                <div class="option" data-score="0">C. 没回，觉得她多管闲事。</div>
+                <div class="option" data-score="-15">D. 说她别管你。</div>
+                <div class="response">小雅：<span id="response-43"></span><span class="close-btn">×</span></div>
             </div>
-            <!-- 题目20 -->
-            <div class="question" data-index="20" data-bg="#c62828">
-                <p><strong>第20题（恋爱第8个月）</strong><br>小雅提到她前任最近联系她，说想做朋友。你会：</p>
-                <div class="option" data-score="15">A. 冷静表达你的不安，问她态度。</div>
-                <div class="option" data-score="5">B. 说你相信她，但提醒保持距离。</div>
-                <div class="option" data-score="0">C. 偷看她手机，确认他们聊了什么。</div>
-                <div class="option" data-score="-20">D. 质问她是不是还放不下前任。</div>
-                <div class="response"><span class="close-btn">×</span></div>
+            <div class="question" data-index="44" data-bg="#ef9a9a">
+                <p><strong>第44题（恋爱第23周）</strong><br>小雅说她觉得你不够主动，你会：</p>
+                <div class="option" data-score="15">A. 计划浪漫活动，改变她看法。</div>
+                <div class="option" data-score="5">B. 问她具体哪里不够主动。</div>
+                <div class="option" data-score="0">C. 说你觉得挺好。</div>
+                <div class="option" data-score="-15">D. 说她要求太多。</div>
+                <div class="response">小雅：<span id="response-44"></span><span class="close-btn">×</span></div>
             </div>
-            <!-- 题目21 -->
-            <div class="question" data-index="21" data-bg="#c62828">
-                <p><strong>第21题（恋爱第9个月）</strong><br>小雅因为你忘了纪念日大吵一架，说你不在乎她。你会：</p>
-                <div class="option" data-score="20">A. 真诚道歉，补办一个纪念日活动。</div>
-                <div class="option" data-score="5">B. 说你忘了但不是故意的，哄她开心。</div>
-                <div class="option" data-score="0">C. 说她太计较，小事而已。</div>
-                <div class="option" data-score="-25">D. 生气地说她太敏感，吵架没意义。</div>
-                <div class="response"><span class="close-btn">×</span></div>
+            <div class="question" data-index="45" data-bg="#ef9a9a">
+                <p><strong>第45题（恋爱第24周）</strong><br>你想买新电脑，小雅说你花钱太大手大脚。你会：</p>
+                <div class="option" data-score="-10">A. 放弃买电脑，听她建议。</div>
+                <div class="option" data-score="15">B. 解释需求，商量预算。</div>
+                <div class="option" data-score="5">C. 说你自己决定。</div>
+                <div class="option" data-score="-15">D. 说她管太多。</div>
+                <div class="response">小雅：<span id="response-45"></span><span class="close-btn">×</span></div>
             </div>
-            <!-- 题目22 -->
-            <div class="question" data-index="22" data-bg="#c62828">
-                <p><strong>第22题（恋爱第9个月）</strong><br>你发现小雅和男同事单独吃夜宵，没提前告诉你。你会：</p>
-                <div class="option" data-score="20">A. 冷静问她情况，表达你的感受。</div>
-                <div class="option" data-score="5">B. 问她为什么不告诉你，语气平和。</div>
-                <div class="option" data-score="0">C. 冷战，等她主动解释。</div>
-                <div class="option" data-score="-25">D. 发火说她不尊重你。</div>
-                <div class="response"><span class="close-btn">×</span></div>
+        
+            <div class="question" data-index="46" data-bg="#f06292">
+                <p><strong>第46题（恋爱第25周）</strong><br>小雅说她觉得你们感情淡了，想冷静几天。你会：</p>
+                <div class="option" data-score="20">A. 尊重她，每天关心一下。</div>
+                <div class="option" data-score="10">B. 问她具体原因，试图解决。</div>
+                <div class="option" data-score="0">C. 说随便她，你也冷静。</div>
+                <div class="option" data-score="-25">D. 说分就分，别拖着。</div>
+                <div class="response">小雅：<span id="response-46"></span><span class="close-btn">×</span></div>
             </div>
-            <!-- 题目23 -->
-            <div class="question" data-index="23" data-bg="#c62828">
-                <p><strong>第23题（恋爱第10个月）</strong><br>小雅说她觉得你们感情淡了，想冷静几天。你会：</p>
-                <div class="option" data-score="20">A. 尊重她，给空间但每天关心一下。</div>
-                <div class="option" data-score="5">B. 问她具体原因，试图解决问题。</div>
-                <div class="option" data-score="0">C. 说随便她，你也需要冷静。</div>
-                <div class="option" data-score="-25">D. 生气地说分就分。</div>
-                <div class="response"><span class="close-btn">×</span></div>
+            <div class="question" data-index="47" data-bg="#f06292">
+                <p><strong>第47题（恋爱第25周）</strong><br>你因工作忙忽略了小雅，她说你不在乎她。你会：</p>
+                <div class="option" data-score="20">A. 道歉，调整时间陪她。</div>
+                <div class="option" data-score="10">B. 说你忙，但会努力。</div>
+                <div class="option" data-score="0">C. 说她想太多。</div>
+                <div class="option" data-score="-25">D. 说她太黏人。</div>
+                <div class="response">小雅：<span id="response-47"></span><span class="close-btn">×</span></div>
             </div>
-            <!-- 题目24 -->
-            <div class="question" data-index="24" data-bg="#b71c1c">
-                <p><strong>第24题（恋爱第10个月）</strong><br>小雅深夜发朋友圈，写“有些事，终究是错的”，像是对你不满。你会：</p>
-                <div class="option" data-score="20">A. 主动找她聊，关心她的情绪。</div>
-                <div class="option" data-score="5">B. 微信问她怎么了，但不深究。</div>
-                <div class="option" data-score="0">C. 看到后不吭声，等她自己说。</div>
-                <div class="option" data-score="-25">D. 觉得她在作，直接无视。</div>
-                <div class="response"><span class="close-btn">×</span></div>
+            <div class="question" data-index="48" data-bg="#f06292">
+                <p><strong>第48题（恋爱第26周）</strong><br>小雅和前任频繁聊天，她说只是朋友。你会：</p>
+                <div class="option" data-score="20">A. 坦诚表达底线和不安。</div>
+                <div class="option" data-score="10">B. 说相信她，但希望保持距离。</div>
+                <div class="option" data-score="0">C. 偷看她手机确认情况。</div>
+                <div class="option" data-score="-25">D. 说她放不下前任。</div>
+                <div class="response">小雅：<span id="response-48"></span><span class="close-btn">×</span></div>
             </div>
-            <!-- 题目25 -->
-            <div class="question" data-index="25" data-bg="#b71c1c">
-                <p><strong>第25题（恋爱第11个月）</strong><br>小雅说她觉得你没那么爱她，怀疑你们的关系。你会：</p>
-                <div class="option" data-score="20">A. 反思自己，用行动证明你的心意。</div>
-                <div class="option" data-score="5">B. 说你很爱她，但需要时间证明。</div>
-                <div class="option" data-score="0">C. 说她想多了，你没问题。</div>
-                <div class="option" data-score="-25">D. 反问她是不是不爱你了。</div>
-                <div class="response"><span class="close-btn">×</span></div>
+            <div class="question" data-index="49" data-bg="#f06292">
+                <p><strong>第49题（恋爱第26周）</strong><br>你想搬到新城市发展，小雅说她不想异地恋。你会：</p>
+                <div class="option" data-score="-20">A. 放弃搬家，留下来。</div>
+                <div class="option" data-score="20">B. 商量如何维系异地恋。</div>
+                <div class="option" data-score="10">C. 说你必须去，试试异地。</div>
+                <div class="option" data-score="-25">D. 说她不支持，分手吧。</div>
+                <div class="response">小雅：<span id="response-49"></span><span class="close-btn">×</span></div>
             </div>
-            <!-- 题目26 -->
-            <div class="question" data-index="26" data-bg="#b71c1c">
-                <p><strong>第26题（恋爱第12个月）</strong><br>小雅说她觉得你们价值观不同，考虑分手。你会：</p>
-                <div class="option" data-score="25">A. 冷静问她具体问题，尝试挽回。</div>
-                <div class="option" data-score="5">B. 尊重她的想法，表达你的不舍。</div>
-                <div class="option" data-score="0">C. 说随便她，你也不想强求。</div>
-                <div class="option" data-score="-30">D. 愤怒地说她不珍惜，分就分。</div>
-                <div class="response"><span class="close-btn">×</span></div>
+            <div class="question" data-index="50" data-bg="#f06292">
+                <p><strong>第50题（恋爱第27周）</strong><br>小雅说她觉得你们价值观不同，考虑分手。你会：</p>
+                <div class="option" data-score="25">A. 问具体问题，尝试挽回。</div>
+                <div class="option" data-score="10">B. 尊重她，表达不舍。</div>
+                <div class="option" data-score="0">C. 说随便她，你不强求。</div>
+                <div class="option" data-score="-30">D. 说她不珍惜，分就分。</div>
+                <div class="response">小雅：<span id="response-50"></span><span class="close-btn">×</span></div>
             </div>
-            <!-- 题目27 -->
-            <div class="question" data-index="27" data-bg="#b71c1c">
-                <p><strong>第27题（恋爱第12个月）</strong><br>你发现小雅和前任频繁聊天，她说只是叙旧。你会：</p>
-                <div class="option" data-score="25">A. 坦诚沟通，表达你的底线和不安。</div>
-                <div class="option" data-score="5">B. 说你信任她，但希望她保持距离。</div>
-                <div class="option" data-score="0">C. 偷看她手机，确认他们聊了什么。</div>
-                <div class="option" data-score="-30">D. 发火说她背叛你，直接摊牌。</div>
-                <div class="response"><span class="close-btn">×</span></div>
+            <div class="question" data-index="51" data-bg="#f06292">
+                <p><strong>第51题（恋爱第27周）</strong><br>你因压力大对小雅发脾气，她很伤心。你会：</p>
+                <div class="option" data-score="25">A. 道歉，解释并安慰她。</div>
+                <div class="option" data-score="10">B. 说你压力大，情绪不好。</div>
+                <div class="option" data-score="0">C. 沉默，等她自己缓。</div>
+                <div class="option" data-score="-25">D. 说她太敏感了。</div>
+                <div class="response">小雅：<span id="response-51"></span><span class="close-btn">×</span></div>
             </div>
-            <!-- 题目28 -->
-            <div class="question" data-index="28" data-bg="#b71c1c">
-                <p><strong>第28题（恋爱第13个月）</strong><br>小雅因工作压力崩溃，哭着说她不知道怎么继续你们的关系。你会：</p>
-                <div class="option" data-score="25">A. 抱紧她，安慰她，承诺一起面对。</div>
-                <div class="option" data-score="5">B. 说你会支持她，但让她想清楚。</div>
-                <div class="option" data-score="0">C. 沉默，说你也不知道怎么办。</div>
-                <div class="option" data-score="-30">D. 说她太情绪化，劝她别想太多。</div>
-                <div class="response"><span class="close-btn">×</span></div>
+            <div class="question" data-index="52" data-bg="#f06292">
+                <p><strong>第52题（恋爱第28周）</strong><br>小雅深夜发朋友圈“有些事放不下”，你会：</p>
+                <div class="option" data-score="25">A. 主动问她情绪，关心她。</div>
+                <div class="option" data-score="10">B. 微信问怎么了，不深究。</div>
+                <div class="option" data-score="0">C. 看到后不吭声。</div>
+                <div class="option" data-score="-25">D. 觉得她在作，懒得理。</div>
+                <div class="response">小雅：<span id="response-52"></span><span class="close-btn">×</span></div>
             </div>
-            <!-- 题目29 -->
-            <div class="question" data-index="29" data-bg="#b71c1c">
-                <p><strong>第29题（恋爱第13个月）</strong><br>小雅说她觉得你们感情变淡了，可能是她的问题。你会：</p>
-                <div class="option" data-score="25">A. 主动沟通，提出一起努力重燃感情。</div>
-                <div class="option" data-score="5">B. 说感情需要双方努力，问她怎么想。</div>
-                <div class="option" data-score="0">C. 说你觉得还好，看她怎么处理。</div>
-                <div class="option" data-score="-30">D. 生气地说她总是挑毛病。</div>
-                <div class="response"><span class="close-btn">×</span></div>
+            <div class="question" data-index="53" data-bg="#f06292">
+                <p><strong>第53题（恋爱第28周）</strong><br>你想和家人过节，小雅说她也想你陪她家人。你会：</p>
+                <div class="option" data-score="-20">A. 放弃自己计划，陪她家人。</div>
+                <div class="option" data-score="25">B. 商量分时间陪双方家人。</div>
+                <div class="option" data-score="10">C. 说你先陪家人，改天陪她。</div>
+                <div class="option" data-score="-25">D. 说她别管你安排。</div>
+                <div class="response">小雅：<span id="response-53"></span><span class="close-btn">×</span></div>
             </div>
-            <!-- 题目30 -->
-            <div class="question" data-index="30" data-bg="#b71c1c">
-                <p><strong>第30题（恋爱第14个月）</strong><br>小雅提出分手，说她累了，不想继续了。你会：</p>
-                <div class="option" data-score="30">A. 冷静挽留，询问能否解决矛盾。</div>
-                <div class="option" data-score="5">B. 说你尊重她，但心里很难受。</div>
-                <div class="option" data-score="0">C. 沉默接受，觉得无力挽回。</div>
-                <div class="option" data-score="-35">D. 愤怒地说她从没珍惜你。</div>
-                <div class="response"><span class="close-btn">×</span></div>
+            <div class="question" data-index="54" data-bg="#f06292">
+                <p><strong>第54题（恋爱第29周）</strong><br>小雅说她工作崩溃，觉得你们关系没意义。你会：</p>
+                <div class="option" data-score="25">A. 安慰她，承诺一起面对。</div>
+                <div class="option" data-score="10">B. 说你支持她，但让她想清楚。</div>
+                <div class="option" data-score="0">C. 说你也不知道怎么办。</div>
+                <div class="option" data-score="-30">D. 说她太情绪化。</div>
+                <div class="response">小雅：<span id="response-54"></span><span class="close-btn">×</span></div>
             </div>
+            <div class="question" data-index="55" data-bg="#f06292">
+                <p><strong>第55题（恋爱第29周）</strong><br>你发现小雅删了你们部分聊天记录，她说手机卡。你会：</p>
+                <div class="option" data-score="25">A. 平和问原因，表达疑惑。</div>
+                <div class="option" data-score="10">B. 不提，暗中观察。</div>
+                <div class="option" data-score="0">C. 直接问她是不是瞒你。</div>
+                <div class="option" data-score="-25">D. 说她不信任你。</div>
+                <div class="response">小雅：<span id="response-55"></span><span class="close-btn">×</span></div>
+            </div>
+            <div class="question" data-index="56" data-bg="#f06292">
+                <p><strong>第56题（恋爱第30周）</strong><br>你因忙碌忘了小雅的生日，她很失望。你会：</p>
+                <div class="option" data-score="25">A. 道歉，补办生日惊喜。</div>
+                <div class="option" data-score="10">B. 说忘了但会补礼物。</div>
+                <div class="option" data-score="0">C. 说生日不重要。</div>
+                <div class="option" data-score="-30">D. 说她太计较了。</div>
+                <div class="response">小雅：<span id="response-56"></span><span class="close-btn">×</span></div>
+            </div>
+            <div class="question" data-index="57" data-bg="#f06292">
+                <p><strong>第57题（恋爱第30周）</strong><br>小雅说她想换工作到外地，可能会异地恋。你会：</p>
+                <div class="option" data-score="25">A. 支持她，承诺保持联系。</div>
+                <div class="option" data-score="10">B. 说异地难，但可以试试。</div>
+                <div class="option" data-score="0">C. 劝她别去，异地不靠谱。</div>
+                <div class="option" data-score="-30">D. 说你接受不了，分手吧。</div>
+                <div class="response">小雅：<span id="response-57"></span><span class="close-btn">×</span></div>
+            </div>
+            <div class="question" data-index="58" data-bg="#f06292">
+                <p><strong>第58题（恋爱第31周）</strong><br>你和朋友聚会到很晚，小雅说你不重视她。你会：</p>
+                <div class="option" data-score="25">A. 道歉，解释并多陪她。</div>
+                <div class="option" data-score="10">B. 说你需要社交，晚点聊。</div>
+                <div class="option" data-score="0">C. 说她想太多。</div>
+                <div class="option" data-score="-30">D. 说她管太多。</div>
+                <div class="response">小雅：<span id="response-58"></span><span class="close-btn">×</span></div>
+            </div>
+            <div class="question" data-index="59" data-bg="#f06292">
+                <p><strong>第59题（恋爱第31周）</strong><br>小雅说她觉得你们没未来，考虑分手。你会：</p>
+                <div class="option" data-score="30">A. 沟通问题，尝试挽回。</div>
+                <div class="option" data-score="10">B. 说尊重她，但很难受。</div>
+                <div class="option" data-score="0">C. 沉默，觉得无力挽回。</div>
+                <div class="option" data-score="-35">D. 说她不珍惜，分就分。</div>
+                <div class="response">小雅：<span id="response-59"></span><span class="close-btn">×</span></div>
+            </div>
+            <div class="question" data-index="60" data-bg="#f06292">
+                <p><strong>第60题（恋爱第32周）</strong><br>你发现小雅和男同事单独吃饭，没提前告诉你。你会：</p>
+                <div class="option" data-score="30">A. 平和问情况，表达感受。</div>
+                <div class="option" data-score="10">B. 问她为什么不告诉你。</div>
+                <div class="option" data-score="0">C. 冷战，等她解释。</div>
+                <div class="option" data-score="-35">D. 说她不尊重你。</div>
+                <div class="response">小雅：<span id="response-60"></span><span class="close-btn">×</span></div>
+            </div>
+        </div>
+
         </div>
         <div id="result">
             <h2>你的恋爱表现得分</h2>
@@ -471,7 +686,6 @@
             <button onclick="shareResult()">分享你的结果</button>
         </div>
         <div class="music-credit">
-
 			<p>所有文案均来自于Ai大模型</p>
             <p>背景音乐来源：<a href="https://freesound.org/people/GregorQuendel/sounds/714250/" target="_blank">Beethoven - Romance in F major, Op.50 (Piano) by GregorQuendel</a>
 			</p>
@@ -493,109 +707,573 @@
     const bgm2 = document.getElementById('bgm2');
     let currentBGM = bgm1;
 
-    // 小雅的反馈
-    const responses = {
-        1: { '10': '小雅：嗯，谢谢。', '5': '小雅：好吧。', '0': '小雅：……', '-5': '小雅：你干嘛生气？' },
-        2: { '10': '小雅：你真大方！', '5': '小雅：行吧。', '0': '小雅：随便。', '-5': '小雅：这么小气干嘛？' },
-        3: { '10': '小雅：嘿嘿，开心！', '5': '小雅：嗯，谢谢点赞。', '0': '小雅：你看了吗？', '-10': '小雅：你干嘛不让我发？' },
-        4: { '10': '小雅：好开心！', '5': '小雅：嗯，有道理。', '0': '小雅：随便吧。', '-5': '小雅：旧的也能用？' },
-        5: { '10': '小雅：你真好！', '5': '小雅：好，点好了。', '0': '小雅：那算了。', '-5': '小雅：你管我吃什么！' },
-        6: { '10': '小雅：你真棒！', '5': '小雅：也好。', '0': '小雅：无所谓啦。', '-10': '小雅：你怎么这样？' },
-        7: { '10': '小雅：真的吗？开心！', '5': '小雅：嗯，行吧。', '0': '小雅：随便你。', '-10': '小雅：你什么意思？' },
-        8: { '10': '小雅：太好了！', '5': '小雅：好吧，玩得开心。', '0': '小雅：你忙吧。', '-10': '小雅：你干嘛这么说？' },
-        9: { '10': '小雅：谢谢你！', '5': '小雅：嗯，知道了。', '0': '小雅：算了。', '-10': '小雅：你怎么这样！' },
-        10: { '10': '小雅：好，聊工作吧。', '5': '小雅：嗯，知道了。', '0': '小雅：你想啥呢？', '-10': '小雅：你干嘛这样问？' },
-        11: { '15': '小雅：你太好了！', '5': '小雅：行吧，平价也行。', '0': '小雅：随便。', '-15': '小雅：你至于吗？' },
-        12: { '15': '小雅：谢谢你陪我！', '5': '小雅：好，微信聊。', '0': '小雅：行吧，改天。', '-15': '小雅：你怎么这样？' },
-        13: { '15': '小雅：你真贴心！', '5': '小雅：嗯，下次吧。', '0': '小雅：……', '-15': '小雅：你干嘛怪我？' },
-        14: { '10': '小雅：就是同事啊。', '5': '小雅：嗯，行。', '0': '小雅：你干嘛不说话？', '-15': '小雅：你什么意思？' },
-        15: { '15': '小雅：太好了！', '5': '小雅：乌龟？想想吧。', '0': '小雅：好吧，不养了。', '-15': '小雅：你干嘛反对？' },
-        16: { '15': '小雅：谢谢你……', '5': '小雅：嗯，冷静下。', '0': '小雅：你怎么不说话？', '-20': '小雅：你还生气？' },
-        17: { '15': '小雅：就是卡了而已。', '5': '小雅：嗯，没啥。', '0': '小雅：你干嘛问这个？', '-20': '小雅：你不信任我？' },
-        18: { '15': '小雅：谢谢支持！', '5': '小雅：好，试试吧。', '0': '小雅：你不支持我？', '-20': '小雅：你怎么这样？' },
-        19: { '15': '小雅：真的？好期待！', '5': '小雅：嗯，聊聊吧。', '0': '小雅：随便你。', '-20': '小雅：你干嘛骂我闺蜜？' },
-        20: { '15': '小雅：我跟他没啥。', '5': '小雅：嗯，知道了。', '0': '小雅：你干嘛偷看？', '-20': '小雅：你凭什么这么说？' },
-        21: { '20': '小雅：好吧，谢谢你。', '5': '小雅：嗯，算了。', '0': '小雅：你觉得是小事？', '-25': '小雅：你还怪我？' },
-        22: { '20': '小雅：就是吃个饭。', '5': '小雅：嗯，下次说。', '0': '小雅：你干嘛不理我？', '-25': '小雅：你有病吧？' },
-        23: { '20': '小雅：谢谢你理解。', '5': '小雅：嗯，聊聊吧。', '0': '小雅：随便你。', '-25': '小雅：你说什么？' },
-        24: { '20': '小雅：谢谢你关心。', '5': '小雅：没事吧。', '0': '小雅：你看到了？', '-25': '小雅：你故意的？' },
-        25: { '20': '小雅：好，我相信你。', '5': '小雅：嗯，慢慢来。', '0': '小雅：你觉得没问题？', '-25': '小雅：你还怪我？' },
-        26: { '25': '小雅：好，我们聊聊。', '5': '小雅：嗯，我想想。', '0': '小雅：随便你吧。', '-30': '小雅：你够了吧！' },
-        27: { '25': '小雅：好，我明白。', '5': '小雅：嗯，行吧。', '0': '小雅：你偷看我手机？', '-30': '小雅：你太过分了！' },
-        28: { '25': '小雅：谢谢你……', '5': '小雅：好，我想想。', '0': '小雅：你没话说了？', '-30': '小雅：你什么意思？' },
-        29: { '25': '小雅：好，我们试试。', '5': '小雅：嗯，行吧。', '0': '小雅：你觉得没事？', '-30': '小雅：你还怪我？' },
-        30: { '30': '小雅：好，我们谈谈。', '5': '小雅：嗯，谢谢。', '0': '小雅：……', '-35': '小雅：你够了！' }
-    };
+    // 小雅的反馈 - 已修复语法错误
+    const responsesData = [
+       {
+           index: 1,
+           responses: {
+               '10': '哦？你这爱好还挺有意思，有空可以试试看。',
+               '5': '嗯，挺好，改天聊聊你还喜欢啥。',
+               '5_2': '哈哈，这么低调？那你猜我喜欢干嘛？',
+               '-5': '这么忙啊？那你平时咋放松的？'
+           }
+       },
+       {
+           index: 2,
+           responses: {
+               '10': '谢了！你人还挺不错的，下次我请回来。',
+               '5': '行吧，记住了，下次我请你喝奶茶。',
+               '5_2': '哦对，我试试微信，谢了啊。',
+               '-5': '好吧，算了，我自己想办法。'
+           }
+       },
+       {
+           index: 3,
+           responses: {
+               '5': '这部电影？看着还行，行吧，周末看看。',
+               '5_2': '抱歉，刚才忙没看微信，周末再说吧？',
+               '5_3': '还行吧，最近有点忙，你咋突然问这个？',
+               '-5': '你咋不回我了？忙啥呢？'
+           }
+       },
+       {
+           index: 4,
+           responses: {
+               '10': '哈哈，约我？说吧，去哪玩？',
+               '5': '没啥计划，你有啥好建议？',
+               '0': '',
+               '-5': ''
+           }
+       },
+       {
+           index: 5,
+           responses: {
+               '10': '谢啦！你还挺贴心，爱吃辣的你吃吗？',
+               '5': '行，算我欠你一顿，啥时候请你？',
+               '0': '谢了啊，下次我自己拿。',
+               '-5': '哦，行吧，我下次注意。'
+           }
+       },
+       {
+           index: 6,
+           responses: {
+               '10': '哇，认识你朋友？好啊，啥时候去？',
+               '5': '嗯，挺好，啥样的聚会？我想想。',
+               '0': '',
+               '-5': ''
+           }
+       },
+       {
+           index: 7,
+           responses: {
+               '10': '谢了，累死了，我先睡了哈。',
+               '5': '是挺辛苦，你也加过班吧？咋挺过来的？',
+               '0': '嗯，谢了。',
+               '-5': '行吧，习惯了，你忙啥呢？'
+           }
+       },
+       {
+           index: 8,
+           responses: {
+               '10': '哟，奶茶？还挺会挑，谢啦！',
+               '5': '我爱喝芒果味的，你也喜欢吗？',
+               '0': '谢了，不过这个味道我一般般。',
+               '-5': ''
+           }
+       },
+       {
+           index: 9,
+           responses: {
+               '10': '哈哈，你也觉得好笑？还有啥好玩的推荐不？',
+               '5': '嘿，品味不错吧？下次我再发点。',
+               '0': '',
+               '-5': ''
+           }
+       },
+       {
+           index: 10,
+           responses: {
+               '10': '哇，你也喜欢他？有空一起听听啊！',
+               '5': '真的？挺有眼光，聊聊你最爱哪首？',
+               '0': '',
+               '-5': ''
+           }
+       },
+       {
+           index: 11,
+           responses: {
+               '10': '好啊！那周六见，去哪逛好玩？',
+               '5': '行吧，抽空来吧，别让我等太久哈。',
+               '0': '你咋还问我？想去哪儿你说呗。',
+               '-5': '哦，行吧，我自己去也行。'
+           }
+       },
+       {
+           index: 12,
+           responses: {
+               '10': '谢了，买新的还挺快，算你有心。',
+               '5': '好吧，赔就行，啥时候还我？',
+               '0': '忙归忙，书你得找回来吧？',
+               '-5': '那是我喜欢的书，你咋这么不在意？'
+           }
+       },
+       {
+           index: 13,
+           responses: {
+               '10': '哈哈，谢谢夸！有空看看我穿咋样？',
+               '5': '哟，点赞了？没啥想说的？',
+               '0': '',
+               '-5': ''
+           }
+       },
+       {
+           index: 14,
+           responses: {
+               '10': '哇，这么直接？让我想想哈，挺意外的。',
+               '5': '嗯？你这啥意思？说清楚点呗。',
+               '0': '',
+               '-5': ''
+           }
+       },
+       {
+           index: 15,
+           responses: {
+               '10': '药都送来了？谢啦，你还挺靠谱的。',
+               '5': '嗯，谢了，我喝点热水试试。',
+               '0': '没事？难受死了好吧。',
+               '-5': '矫情？感冒你试试看？'
+           }
+       },
+       {
+           index: 16,
+           responses: {
+               '10': '谢啦，陪我排队还挺有耐心的！',
+               '5': '嗯，换家也行吧，不过网红店我还想试试。',
+               '0': '麻烦啥？偶尔排队不也挺好玩？',
+               '-10': '行吧，我自己去，你忙你的。'
+           }
+       },
+       {
+           index: 17,
+           responses: {
+               '-5': '陪我聊挺好，不过你真不看球了？',
+               '10': '行，半场就半场，明天记得陪我哦。',
+               '5': '好吧，你看你的球，晚点记得回我。',
+               '-10': '你看球比我重要是吧？行，你继续。'
+           }
+       },
+       {
+           index: 18,
+           responses: {
+               '10': '哈哈，你这评论甜得我牙疼！',
+               '5': '还不错吧？你也发一个呗。',
+               '0': '',
+               '-10': '高调咋了？不发你咋不说？'
+           }
+       },
+       {
+           index: 19,
+           responses: {
+               '10': '好吧，加班辛苦了，早点休息哈。',
+               '5': '行，忙完回我，别又忘了。',
+               '0': '我催啥了？就问问你咋了。',
+               '-10': '不回是吧？行，你忙。'
+           }
+       },
+       {
+           index: 20,
+           responses: {
+               '10': '哈哈，iPhone是吧？行，我再想想。',
+               '5': '嗯，国产也不错，谢了啊。',
+               '0': '随我？那我自己挑了啊。',
+               '-5': '还能用？用得我都烦了！'
+           }
+       },
+       {
+           index: 21,
+           responses: {
+               '-5': '陪我挺好，不过你朋友不会怪我吧？',
+               '10': '行吧，一起去试试，你朋友咋样？',
+               '5': '好吧，你去玩，晚点找我。',
+               '-10': '行，你玩你的，我随便。'
+           }
+       },
+       {
+           index: 22,
+           responses: {
+               '10': '哈哈，行，我付！下次你请啊。',
+               '5': '好吧，下次我注意点预算。',
+               '0': '随便？那我可点狠了啊。',
+               '-5': '退啥？我就想吃这个！'
+           }
+       },
+       {
+           index: 23,
+           responses: {
+               '10': '好吧，礼物收下了，下次别忘了！',
+               '5': '不是故意的？行吧，哄得还行。',
+               '0': '不重要？你试试被忘的感觉！',
+               '-10': '小事？我生日你觉得是小事？'
+           }
+       },
+       {
+           index: 24,
+           responses: {
+               '10': '哇，这惊喜可以啊！你还挺有心的。',
+               '5': '我？还行吧，你偶尔浪漫点呗。',
+               '0': '就这样？那我可得想想了。',
+               '-10': '我闺蜜咋多管闲事了？你有意见？'
+           }
+       },
+       {
+           index: 25,
+           responses: {
+               '-5': '陪我出去挺好，不过你游戏咋不玩了？',
+               '10': '行，玩会游戏就陪我，公平！',
+               '5': '休息？好吧，改天别忘了哦。',
+               '-10': '行，你玩你的，我自己出去。'
+           }
+       },
+       {
+           index: 26,
+           responses: {
+               '10': '谢了，陪我散步心情好多了。',
+               '5': '好吧，微信聊也行，你咋这么忙？',
+               '0': '改天？你现在就没空吗？',
+               '-10': 'emo？我是真累好吧！'
+           }
+       },
+       {
+           index: 27,
+           responses: {
+               '10': '谢了，新的耳机还行，算你靠谱。',
+               '5': '修？行吧，快点搞定啊。',
+               '0': '回头？别拖太久啊。',
+               '-10': '旧了？那也是我常用的好吧！'
+           }
+       },
+       {
+           index: 28,
+           responses: {
+               '10': '没事，就是同事，谢你问我。',
+               '5': '点赞了？没啥想说的？',
+               '0': '',
+               '-10': '暧昧？你想太多了吧！'
+           }
+       },
+       {
+           index: 29,
+           responses: {
+               '-5': '不去了？行吧，陪我干点别的也行。',
+               '10': '攒钱？好主意，咱俩一起努力！',
+               '5': '一个人去？行吧，你开心就好。',
+               '-10': '不懂？我也没说不让你去啊！'
+           }
+       },
+       {
+           index: 30,
+           responses: {
+               '10': '谢了，最近真忙，改天我请你看！',
+               '5': '好，下次我一定到！',
+               '0': '你咋不说话？生气了？',
+               '-10': '不重视？我加班也控制不了啊！'
+           }
+       },
+       {
+           index: 31,
+           responses: {
+               '15': '就聊工作，谢你信任，最近项目忙疯了。',
+               '5': '误会啥？都是工作，你想多了吧。',
+               '0': '你问这个干嘛？就是同事啊。',
+               '-15': '质问我？你是不是不信任我？'
+           }
+       },
+       {
+           index: 32,
+           responses: {
+               '15': '好吧，忙归忙，哄我还算有心。',
+               '5': '忙？行吧，晚点你可别又忘了。',
+               '0': '敏感？我就问你一句咋了？',
+               '-15': '烦？行，你忙你的去吧！'
+           }
+       },
+       {
+           index: 33,
+           responses: {
+               '-10': '哇，包好看！不过你别太破费了。',
+               '15': '嗯，你说得也有道理，我再看看。',
+               '0': '随便？那我可真买了啊。',
+               '-5': '买不起？我也没非要你买啊！'
+           }
+       },
+       {
+           index: 34,
+           responses: {
+               '-10': '陪我挺好，不过你朋友咋想？',
+               '15': '行，商量着来，咱俩都开心最好。',
+               '5': '去吧，但别老丢下我啊。',
+               '-15': '行，你去你的，我随便。'
+           }
+       },
+       {
+           index: 35,
+           responses: {
+               '15': '我还好啦，聊聊我就放心了。',
+               '5': '嗯，信心是好，你再多关心点呗。',
+               '0': '不理？那我可得自己想想了。',
+               '-15': '多管闲事？我闺蜜也是为我好！'
+           }
+       },
+       {
+           index: 36,
+           responses: {
+               '15': '补办还行，算你有心，下次别忘了！',
+               '5': '不是故意的？行吧，补个礼物呗。',
+               '0': '计较？纪念日对你不重要？',
+               '-15': '没意义？那咱俩感情有意义吗？'
+           }
+       },
+       {
+           index: 37,
+           responses: {
+               '15': '谢了，陪我聊聊我心情好多了。',
+               '5': '我也累，但你能不能多关心点？',
+               '0': '你不说话啥意思？不关心我？',
+               '-15': '无理取闹？我压力大你还这么说！'
+           }
+       },
+       {
+           index: 38,
+           responses: {
+               '-10': '留下来？谢了，但你真不后悔？',
+               '15': '行，咱俩好好计划，我不想分开。',
+               '5': '异地？行吧，但你得常联系我。',
+               '-15': '分手？你连谈都不想谈？'
+           }
+       },
+       {
+           index: 39,
+           responses: {
+               '15': '太好了！咱俩一起养猫，开心！',
+               '5': '乌龟？也行吧，但猫多可爱啊。',
+               '0': '麻烦？养猫有啥麻烦的？',
+               '-15': '讨厌猫？你也太无趣了吧！'
+           }
+       },
+       {
+           index: 40,
+           responses: {
+               '15': '就叙旧，谢你理解，我会注意的。',
+               '5': '相信我？那提醒啥，怕我跑了？',
+               '0': '',
+               '-15': '放不下？你这不信任也太离谱了！'
+           }
+       },
+       {
+           index: 41,
+           responses: {
+               '15': '好吧，下次补偿我，不然不原谅你！',
+               '5': '忙归忙，下次早点说好不好？',
+               '0': '理解？我也想你陪我啊！',
+               '-15': '敏感？你错过聚会还怪我？'
+           }
+       },
+       {
+           index: 42,
+           responses: {
+               '15': '谢了！你支持我我超开心！',
+               '5': '预算？行吧，我再看看便宜的。',
+               '0': '随便？那我自己决定了啊。',
+               '-15': '没必要？我喜欢你管得着吗？'
+           }
+       },
+       {
+           index: 43,
+           responses: {
+               '15': '没事就好，谢你回我，早点回家！',
+               '5': '开心？行吧，晚点记得回我。',
+               '0': '不回我？担心你都不行？',
+               '-15': '别管？行，你随便玩吧！'
+           }
+       },
+       {
+           index: 44,
+           responses: {
+               '15': '哇，这活动不错！你主动我喜欢！',
+               '5': '嗯，比如多约我出去呗，咋样？',
+               '0': '挺好？你再想想我为啥这么说。',
+               '-15': '要求多？那你觉得我该咋办？'
+           }
+       },
+       {
+           index: 45,
+           responses: {
+               '-10': '不买了？行吧，省点也好。',
+               '15': '好，商量着来，我也不想管太多。',
+               '5': '自己决定？行吧，别后悔就行。',
+               '-15': '管太多？我提醒你一句都不行？'
+           }
+       },
+       {
+           index: 46,
+           responses: {
+               '20': '谢你理解，我冷静下，咱再聊。',
+               '10': '原因？最近感觉你没那么上心了。',
+               '0': '随便？那咱俩都冷静好了。',
+               '-25': '分？这么快下结论，你认真的？'
+           }
+       },
+       {
+           index: 47,
+           responses: {
+               '20': '谢了，你肯陪我我挺感动。',
+               '10': '努力？行吧，我希望你多点时间。',
+               '0': '想太多？我感觉不到你在乎啊！',
+               '-25': '黏人？我只是想你关心我！'
+           }
+       },
+       {
+           index: 48,
+           responses: {
+               '20': '好，我明白你的感受，我会注意。',
+               '10': '保持距离？行吧，我尽量。',
+               '0': '你看我手机？不信任我？',
+               '-25': '放不下？你这猜得也太离谱了！'
+           }
+       },
+       {
+           index: 49,
+           responses: {
+               '-20': '留下来？谢了，但你真不后悔？',
+               '20': '好，咱俩计划好，我不想失去你。',
+               '10': '试试？行吧，但你得常联系我。',
+               '-25': '分手？你连试都不想试？'
+           }
+       },
+       {
+           index: 50,
+           responses: {
+               '25': '好，咱聊聊，或许能找到办法。',
+               '10': '谢你理解，我也舍不得，但得想想。',
+               '0': '随便？那你真不在乎了？',
+               '-30': '不珍惜？你这话你也说得出口？'
+           }
+       },
+       {
+           index: 51,
+           responses: {
+               '25': '好，谢你道歉，咱好好聊聊。',
+               '10': '压力大？但你冲我发火我难受啊。',
+               '0': '不说话？你觉得这能解决问题？',
+               '-25': '敏感？我伤心你还怪我？'
+           }
+       },
+       {
+           index: 52,
+           responses: {
+               '25': '谢谢你关心，我心情不好，聊聊吧。',
+               '10': '没事，就是感慨下，谢你问我。',
+               '0': '',
+               '-25': '作？我在乎的事你觉得是作？'
+           }
+       },
+       {
+           index: 53,
+           responses: {
+               '-20': '陪我家人挺好，但你家人咋办？',
+               '25': '好，咱俩商量好，双方都照顾到！',
+               '10': '行吧，改天记得也陪我家人。',
+               '-25': '不管？你这也太自我了吧！'
+           }
+       },
+       {
+           index: 54,
+           responses: {
+               '25': '谢你陪我，我感觉好多了，咱一起努力。',
+               '10': '想清楚？行吧，但我现在很乱。',
+               '0': '不知道？那你觉得咱俩还有意义吗？',
+               '-30': '情绪化？我崩溃你还这么说？'
+           }
+       },
+       {
+           index: 55,
+           responses: {
+               '25': '手机确实卡了，谢你问，我没啥瞒你的。',
+               '10': '观察我？有啥好观察的，直接问啊。',
+               '0': '直接问？干嘛不信任我？',
+               '-25': '不信任？你这话说太伤人了！'
+           }
+       },
+       {
+           index: 56,
+           responses: {
+               '25': '惊喜不错，算你有心，下次别忘了！',
+               '10': '补礼物？行吧，勉强原谅你。',
+               '0': '不重要？生日对我很重要好吧！',
+               '-30': '计较？你忘了生日还怪我？'
+           }
+       },
+       {
+           index: 57,
+           responses: {
+               '25': '谢你支持，咱俩一起努力不分开！',
+               '10': '试试？好吧，但我怕异地会累。',
+               '0': '不靠谱？我想试试你都不支持？',
+               '-30': '分手？你连商量都不想？'
+           }
+       },
+       {
+           index: 58,
+           responses: {
+               '25': '好，谢你道歉，多陪我点就行。',
+               '10': '社交我懂，但你也得顾着我啊。',
+               '0': '想太多？我只是觉得你不在乎！',
+               '-30': '管太多？我关心你都不行？'
+           }
+       },
+       {
+           index: 59,
+           responses: {
+               '30': '好，咱聊聊，我也不想放弃咱俩。',
+               '10': '谢你理解，但我真怕没未来。',
+               '0': '沉默？那咱俩真没得谈了？',
+               '-35': '不珍惜？你这话让我心寒！'
+           }
+       },
+       {
+           index: 60,
+           responses: {
+               '30': '就吃个饭，谢你问清楚，我下次会先跟你说。',
+               '10': '没说？工作忙忘了，你至于这么在意吗？',
+               '0': '你不说话啥意思？有意见就直说啊！',
+               '-35': '不尊重？你上来就指责我，咱还能好好聊吗？'
+           }
+       }
+    ];
 
     // 加载动画
     window.addEventListener('load', () => {
-        const resources = [bgm1, bgm2];
-        let loaded = 0;
-        resources.forEach(audio => {
-            audio.addEventListener('canplaythrough', () => {
-                loaded++;
-                if (loaded === resources.length) {
-                    setTimeout(() => {
-                        loadingDiv.style.display = 'none';
-                        document.querySelector('.container').style.display = 'block';
-                        bgm1.volume = 0.2;
-                        bgm1.play().catch(e => console.error('BGM1 play error:', e));
-                        setupBGMLoop(bgm1); // 初始化循环逻辑
-                    }, 500);
-                }
-            });
-            audio.load();
-        });
-        loadingDiv.addEventListener('click', () => {
+        // 简化加载逻辑，假设资源能很快加载完成
+        setTimeout(() => {
             loadingDiv.style.display = 'none';
             document.querySelector('.container').style.display = 'block';
             bgm1.volume = 0.2;
             bgm1.play().catch(e => console.error('BGM1 play error:', e));
-            setupBGMLoop(bgm1); // 初始化循环逻辑
+        }, 500);
+
+        loadingDiv.addEventListener('click', () => {
+            loadingDiv.style.display = 'none';
+            document.querySelector('.container').style.display = 'block';
+            if (bgm1.paused) {
+                bgm1.volume = 0.2;
+                bgm1.play().catch(e => console.error('BGM1 play error on click:', e));
+            }
         });
     });
 
-    // 设置音乐循环和渐变切换
-    function setupBGMLoop(bgm) {
-        bgm.addEventListener('timeupdate', () => {
-            // 检测音乐是否接近结束（最后2秒）
-            if (bgm.duration - bgm.currentTime <= 2 && !bgm.dataset.fading) {
-                bgm.dataset.fading = 'true'; // 标记为正在淡出，防止重复触发
-                fadeOutAndLoop(bgm);
-            }
-        });
-        bgm.addEventListener('ended', () => {
-            // 确保在极端情况下（timeupdate 未触发）也能循环
-            fadeOutAndLoop(bgm);
-        });
-    }
-
-    // 淡出并循环播放
-    function fadeOutAndLoop(bgm) {
-        const fadeOut = setInterval(() => {
-            if (bgm.volume > 0.05) {
-                bgm.volume -= 0.05;
-            } else {
-                clearInterval(fadeOut);
-                bgm.volume = 0;
-                bgm.currentTime = 0; // 重置到开头
-                bgm.play().catch(e => console.error('BGM play error:', e));
-                const fadeIn = setInterval(() => {
-                    if (bgm.volume < 0.2) {
-                        bgm.volume += 0.05;
-                    } else {
-                        clearInterval(fadeIn);
-                        bgm.volume = 0.2;
-                        bgm.dataset.fading = ''; // 清除淡出标记
-                    }
-                }, 50);
-            }
-        }, 50);
-    }
-
-    // BGM渐变切换（用于题目切换时的音乐切换）
+    // BGM渐变切换
     function crossfadeBGM(nextBGM) {
-        if (currentBGM === nextBGM) return;
+        if (currentBGM === nextBGM || !currentBGM) return;
         const fadeOut = setInterval(() => {
             if (currentBGM.volume > 0.05) {
                 currentBGM.volume -= 0.05;
@@ -603,13 +1281,13 @@
                 clearInterval(fadeOut);
                 currentBGM.pause();
                 currentBGM.currentTime = 0;
-                currentBGM.volume = 0.2;
+                currentBGM.volume = 0.2; // Reset volume for next time
+                
                 nextBGM.volume = 0;
                 nextBGM.play().catch(e => console.error('BGM play error:', e));
-                setupBGMLoop(nextBGM); // 为新音乐设置循环逻辑
                 const fadeIn = setInterval(() => {
                     if (nextBGM.volume < 0.2) {
-                        nextBGM.volume += 0.05;
+                        nextBGM.volume = Math.min(nextBGM.volume + 0.05, 0.2);
                     } else {
                         clearInterval(fadeIn);
                         nextBGM.volume = 0.2;
@@ -620,9 +1298,9 @@
         }, 50);
     }
 
-    // 更新BGM
+    // 更新BGM - 修复切换时机
     function updateBGM() {
-        const targetBGM = currentQuestion <= 10 ? bgm1 : bgm2;
+        const targetBGM = currentQuestion <= 29 ? bgm1 : bgm2;
         if (currentBGM !== targetBGM) {
             crossfadeBGM(targetBGM);
         }
@@ -630,49 +1308,64 @@
 
     // 显示第一题
     document.querySelector('.container').style.display = 'none';
-    document.querySelector('.question[data-index="1"]').classList.add('active');
+    const firstQuestion = document.querySelector('.question[data-index="1"]');
+    if(firstQuestion) {
+        firstQuestion.classList.add('active');
+    }
 
-    // 消息框交互
-    function showResponse(responseDiv, score) {
-        responseDiv.textContent = responses[currentQuestion][score];
+
+    // 消息框交互 - 修复显示逻辑
+    function showResponse(responseDiv, optionIndex) {
+        const questionData = responsesData.find(q => q.index === currentQuestion);
+        let responseText = '';
+
+        if (questionData && questionData.responses) {
+            const responseKeys = Object.keys(questionData.responses); // ['10', '5', '5_2', '-5']
+            const responseKey = responseKeys[optionIndex];
+            if (responseKey) {
+                responseText = questionData.responses[responseKey];
+            }
+        }
+
+        const textContainer = responseDiv.querySelector(`#response-${currentQuestion}`);
+        if(textContainer){
+             textContainer.textContent = responseText;
+        }
+
         responseDiv.classList.add('active');
         responseDiv.style.display = 'block';
 
-        responseDiv.removeEventListener('touchstart', handleTouchStart);
-        responseDiv.removeEventListener('touchmove', handleTouchMove);
+        let touchStartY = 0;
+        const handleTouchStart = (e) => {
+            touchStartY = e.touches[0].clientY;
+        };
+        const handleTouchMove = (e) => {
+            const deltaY = e.touches[0].clientY - touchStartY;
+            if (deltaY < -50) { // Swipe up
+                responseDiv.classList.remove('active');
+                responseDiv.style.display = 'none';
+                responseDiv.removeEventListener('touchstart', handleTouchStart);
+                responseDiv.removeEventListener('touchmove', handleTouchMove);
+            }
+        };
 
         if (window.innerWidth <= 600) {
-            let touchStartY = 0;
-            function handleTouchStart(e) {
-                touchStartY = e.touches[0].clientY;
-            }
-            function handleTouchMove(e) {
-                const deltaY = e.touches[0].clientY - touchStartY;
-                if (deltaY < -50) {
-                    responseDiv.classList.remove('active');
-                    responseDiv.classList.add('swipe-up');
-                    setTimeout(() => {
-                        responseDiv.classList.remove('swipe-up');
-                        responseDiv.style.display = 'none';
-                    }, 300);
-                }
-            }
             responseDiv.addEventListener('touchstart', handleTouchStart);
             responseDiv.addEventListener('touchmove', handleTouchMove);
         }
 
         const closeBtn = responseDiv.querySelector('.close-btn');
-        if (closeBtn) {
+        const handleClose = () => {
+            responseDiv.classList.remove('active');
+            responseDiv.style.display = 'none';
             closeBtn.removeEventListener('click', handleClose);
-            function handleClose() {
-                responseDiv.classList.remove('active');
-                responseDiv.style.display = 'none';
-            }
+        };
+        if(closeBtn){
             closeBtn.addEventListener('click', handleClose);
         }
     }
 
-    // 选项点击事件
+    // 选项点击事件 - 修复逻辑
     document.querySelectorAll('.option').forEach(option => {
         option.addEventListener('click', () => {
             const score = parseInt(option.dataset.score);
@@ -682,11 +1375,17 @@
 
             const current = document.querySelector('.question.active');
             const responseDiv = current.querySelector('.response');
-            showResponse(responseDiv, score);
+            
+            const optionsInCurrent = Array.from(current.querySelectorAll('.option'));
+            const optionIndex = optionsInCurrent.indexOf(option);
+
+            showResponse(responseDiv, optionIndex);
 
             setTimeout(() => {
-                responseDiv.classList.remove('active');
-                responseDiv.style.display = 'none';
+                if (responseDiv) {
+                    responseDiv.classList.remove('active');
+                    responseDiv.style.display = 'none';
+                }
                 current.classList.remove('active');
                 current.style.display = 'none';
                 if (currentQuestion < questions.length) {
@@ -705,61 +1404,93 @@
 
     // 动态显示分数
     function showResult() {
-        questions.forEach(q => q.style.display = 'none');
+        document.getElementById('questions').style.display = 'none';
         resultDiv.style.display = 'block';
         let bgColor = '#ffebee';
-        if (totalScore >= 750 || totalScore <= 249) {
-            bgColor = '#b71c1c';
-        } else if (totalScore >= 250 && totalScore <= 749) {
-            bgColor = '#4caf50';
+        if (totalScore >= 350) { // 调整颜色阈值
+             bgColor = '#4caf50';
+        } else if (totalScore < 125) {
+             bgColor = '#b71c1c';
         }
         document.body.style.backgroundColor = bgColor;
 
         let displayScore = 0;
-        const increment = totalScore >= 0 ? 10 : -10;
+        const finalScore = totalScore;
+        const increment = Math.ceil(finalScore / 100);
+        
         const interval = setInterval(() => {
-            if ((increment > 0 && displayScore >= totalScore) || (increment < 0 && displayScore <= totalScore)) {
+            displayScore += increment;
+            if ((increment > 0 && displayScore >= finalScore) || (increment < 0 && displayScore <= finalScore)) {
                 clearInterval(interval);
-                scoreDiv.textContent = totalScore;
-                scoreBar.style.width = `${Math.min((totalScore + 1000) / 2000 * 100, 100)}%`;
+                displayScore = finalScore;
+                scoreDiv.textContent = finalScore;
+                const scorePercentage = Math.max(0, Math.min(100, (finalScore + 485) / (835 + 485) * 100));
+                scoreBar.style.width = `${scorePercentage}%`;
                 showComment();
             } else {
-                if (Math.abs(displayScore - totalScore) < 100 && Math.random() > 0.7) {
-                    setTimeout(() => {}, 500);
-                }
-                displayScore += increment;
                 scoreDiv.textContent = displayScore;
-                scoreBar.style.width = `${Math.min((displayScore + 1000) / 2000 * 100, 100)}%`;
+                const scorePercentage = Math.max(0, Math.min(100, (displayScore + 485) / (835 + 485) * 100));
+                scoreBar.style.width = `${scorePercentage}%`;
             }
-        }, 50);
-        currentBGM.pause();
+        }, 20); //加快动画速度
+        
+        if (currentBGM) {
+            currentBGM.pause();
+        }
     }
 
-function showComment() {
-    let comment = '';
-    if (totalScore >= 350) {
-        comment = '你对爱情倾尽心力，愿意为她点亮星空，温柔且深情。但爱情如河流，需双方共划桨前行。保持你的真心，也别忘了为自己留一片天空！';
-    } else if (totalScore >= 200) {
-        comment = '你在爱中游刃有余，既温暖又理性，像稳稳的灯塔。继续用沟通点亮彼此的心，爱情会在双向奔赴中绽放光芒！';
-    } else if (totalScore >= 125) {
-        comment = '你或许在爱情中稍显谨慎，像守护城堡的骑士。试着敞开心扉，多倾听她的声音，也让自己的期待被看见，爱需要双方的勇气！';
-    } else {
-        comment = '爱情对你来说像未解的谜，但每颗心都有找到归宿的可能。迈出一步，用真诚和耐心去理解对方，你会发现爱的温暖与力量！';
+    // 评语
+    function showComment() {
+        let comment = '';
+        if (totalScore >= 350) {
+            comment = '你对爱情全心全意，愿意为对方付出一切，温柔又体贴。但爱情如舞，需双方共谱节奏，适当保留自我，才能让感情更持久闪耀！';
+        } else if (totalScore >= 200) {
+            comment = '你的恋爱方式温暖且理性，懂得关心也保持分寸。继续用心沟通，让彼此的心更近，爱情会如花般绽放！';
+        } else if (totalScore >= 125) {
+            comment = '你可能在爱情中有些谨慎，保护自己的心之余，别忘了多倾听对方的声音。试着迈出一步，爱情需要双向的勇气与理解！';
+        } else {
+            comment = '爱情对你来说或许还有些陌生，但没关系，每颗心都有找到归宿的可能。多一些耐心与包容，你会发现爱的更多可能！';
+        }
+        commentDiv.textContent = comment + ' 爱情是相互的旅程，愿你用真心与智慧，找到属于你的幸福光芒！';
     }
-    commentDiv.textContent = comment + ' 爱情是两颗心的共舞，愿你以真心与自信，找到属于你的幸福节奏！';
-}
-
 
 
     // 分享结果
     function shareResult() {
-        const text = `我在《恋爱周期情景测试》得了${totalScore}分！${commentDiv.textContent} 快来测测你的恋爱表现吧！https://linxiaodong688.github.io/tgpage/`;
-        navigator.clipboard.writeText(text);
-        alert('结果已复制到剪贴板，粘贴到微信/QQ分享吧！');
+        const resultText = `我在《恋爱周期情景测试》得了${totalScore}分！${commentDiv.textContent} 快来测测你的恋爱表现吧！`;
+        const resultUrl = 'https://linxiaodong688.github.io/tgpage/';
+
+        // 检查浏览器是否支持 Web Share API (navigator.share)
+        if (navigator.share) {
+            navigator.share({
+                title: '恋爱周期情景测试结果', // 分享的标题
+                text: resultText,               // 分享的文本内容
+                url: resultUrl                  // 分享的链接
+            })
+            .then(() => console.log('成功调用原生分享功能'))
+            .catch((error) => {
+                console.log('调用原生分享失败', error);
+                // 如果用户取消了分享，或者发生了其他错误，可以执行后备方案
+                fallbackShare(resultText + ' ' + resultUrl);
+            });
+        } else {
+            // 如果浏览器不支持，则执行后备方案（复制到剪贴板）
+            console.log('浏览器不支持原生分享，启用后备方案。');
+            fallbackShare(resultText + ' ' + resultUrl);
+        }
     }
+
+    // 后备的分享方案（复制到剪贴板）
+    function fallbackShare(textToCopy) {
+        navigator.clipboard.writeText(textToCopy).then(() => {
+            alert('结果已复制到剪贴板，快去粘贴分享吧！');
+        }).catch(err => {
+            console.error('复制失败: ', err);
+            alert('复制失败，请手动复制结果。');
+        });
+    }
+
 </script>
 
-   
 </body>
 </html>
-
